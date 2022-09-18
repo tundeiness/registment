@@ -12,9 +12,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       }, status: :ok
     else
       render json: {
-        status: { message: 'user cannot be created', errors: resource.errors.full_messages },
-        status: :unprocessable_entity
-      }
+        status: { message: 'user cannot be created', errors: resource.errors.full_messages }
+      }, status: :unprocessable_entity
     end
   end
   # before_action :configure_sign_up_params, only: [:create]
