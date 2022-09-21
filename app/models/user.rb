@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   has_many :equipments
 
-  def jwt_payload
-    super
-  end
+  # def jwt_payload
+  #   super
+  # end
 end
