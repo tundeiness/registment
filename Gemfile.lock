@@ -261,6 +261,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  activestorage
   bootsnap
   database_cleaner
   debug
