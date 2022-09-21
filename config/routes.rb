@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  get '/customers' => 'customers#index'
   namespace :api do
     namespace :v1 do
       #  user resources
