@@ -1,7 +1,7 @@
 class Api::V1::EquipmentsController < ApplicationController
 
   def index
-    @equipments = Equipment.all
+    @equipments ||= Equipment.all
     render json: @equipments.map { |item|
       if item.photo.attached?
         item.as_json(only: :brand_name).merge(photo_path: url_for(item.photo))
