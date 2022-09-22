@@ -58,5 +58,3 @@ group :test do
   gem 'shoulda-matchers'
 end
 
-
-gem "image_processing", "~> 1.12"
