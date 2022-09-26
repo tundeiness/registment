@@ -41,6 +41,16 @@ RSpec.describe Equipment, type: :model do
   context 'validation tests' do
     let(:equipment) { build(:equipment) }
 
+    it 'must have brand name specified' do
+      equipment.brand_name = ''
+      equipment.condition = 'broken'
+      equipment.model_number = 'we3435gyx7023za'
+      equipment.description = '3rd order Total station'
+      equipment.serial_no = '2344900292x87353'
+      equipment.supplier = 'Strafford & Sons'
+      expect(equipment.save).to eq(false)
+    end
+
     it 'must have condition specified' do
       equipment.brand_name = 'Sokkia'
       equipment.condition = ''
@@ -48,6 +58,46 @@ RSpec.describe Equipment, type: :model do
       equipment.description = '3rd order Total station'
       equipment.serial_no = '2344900292x87353'
       equipment.supplier = 'Strafford & Sons'
+      expect(equipment.save).to eq(false)
+    end
+
+    it 'must have model number specified' do
+      equipment.brand_name = 'Sokkia'
+      equipment.condition = 'broken'
+      equipment.model_number = ''
+      equipment.description = '3rd order Total station'
+      equipment.serial_no = '2344900292x87353'
+      equipment.supplier = 'Strafford & Sons'
+      expect(equipment.save).to eq(false)
+    end
+
+    it 'must have description' do
+      equipment.brand_name = 'Sokkia'
+      equipment.condition = 'broken'
+      equipment.model_number = 'we3435gyx7023za'
+      equipment.description = ''
+      equipment.serial_no = '2344900292x87353'
+      equipment.supplier = 'Strafford & Sons'
+      expect(equipment.save).to eq(false)
+    end
+
+    it 'must have a serial number' do
+      equipment.brand_name = 'Sokkia'
+      equipment.condition = 'broken'
+      equipment.model_number = 'we3435gyx7023za'
+      equipment.description = '3rd order Total station'
+      equipment.serial_no = ''
+      equipment.supplier = 'Strafford & Sons'
+      expect(equipment.save).to eq(false)
+    end
+
+    it 'must have a supplier' do
+      equipment.brand_name = 'Sokkia'
+      equipment.condition = 'intact'
+      equipment.model_number = 'we3435gyx7023za'
+      equipment.description = '3rd order Total station'
+      equipment.serial_no = '2344900292x87353'
+      equipment.supplier = ''
       expect(equipment.save).to eq(false)
     end
 
