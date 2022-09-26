@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Equipment, type: :model do
+ 
   describe 'brand_name' do
     it 'must have a brand_name' do
       equip = build(:equipment, brand_name: '')
@@ -49,10 +50,20 @@ RSpec.describe Equipment, type: :model do
       equipment.supplier = 'Strafford & Sons'
       expect(equipment.save).to eq(false)
     end
+
+    it 'must not be empty' do
+      equipment.brand_name = ''
+      equipment.condition = ''
+      equipment.model_number = ''
+      equipment.description = ''
+      equipment.serial_no = ''
+      equipment.supplier = ''
+      expect(equipment.save).to eq(false)
+    end
   end
 
-  context 'Association tests' do 
-    describe 'model associations' do 
+  context 'Association tests' do
+    describe 'model associations' do
       # it 'has many request' do 
       #   has_many_assc = Equipment.reflect_on_association(:request)
       #   expect(has_many_assc.macro).to eq :has_many
