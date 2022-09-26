@@ -1,3 +1,14 @@
+# t.string "brand_name", null: false
+# t.string "serial_no", null: false
+# t.string "condition", null: false
+# t.date "date_acquired", null: false
+# t.string "supplier", null: false
+# t.string "model_number", null: false
+# t.text "description", null: false
+# t.datetime "created_at", null: false
+# t.datetime "updated_at", null: false
+
+
 class Equipment < ApplicationRecord
   # belongs_to :user
   has_one_attached :photo do |photo|
