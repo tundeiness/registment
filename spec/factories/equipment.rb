@@ -7,7 +7,6 @@ FactoryBot.define do
     supplier { 'MyString' }
     model_number { 'MyString' }
     description { 'MyText' }
-    # user { nil }
   end
 end
 # equip = FactoryBot.create(:equipment)
