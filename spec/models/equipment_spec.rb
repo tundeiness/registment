@@ -24,4 +24,39 @@ RSpec.describe Equipment, type: :model do
       expect(equip.supplier).to eq('Skiddo Nig Ltd')
     end
   end
+
+  describe 'serial_no' do
+    it 'must have a serial number' do
+      equip = build(:equipment, serial_no: '')
+      expect(equip.serial_no).to be_empty
+    end
+
+    it 'must have a serial number' do
+      equip = build(:equipment, serial_no: 'we3435gyx78199023za')
+      expect(equip.serial_no).to eq('we3435gyx78199023za')
+    end
+  end
+
+  context 'validation tests' do
+    let(:equipment) { build(:equipment) }
+
+    it 'must have condition specified' do
+      equipment.brand_name = 'Sokkia'
+      equipment.condition = ''
+      equipment.model_number = 'we3435gyx7023za'
+      equipment.description = '3rd order Total station'
+      equipment.serial_no = '2344900292x87353'
+      equipment.supplier = 'Strafford & Sons'
+      expect(equipment.save).to eq(false)
+    end
+  end
+
+  context 'Association tests' do 
+    describe 'model associations' do 
+      # it 'has many request' do 
+      #   has_many_assc = Equipment.reflect_on_association(:request)
+      #   expect(has_many_assc.macro).to eq :has_many
+      # end
+    end
+  end
 end
