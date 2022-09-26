@@ -48,6 +48,7 @@ RSpec.describe Equipment, type: :model do
       equipment.description = '3rd order Total station'
       equipment.serial_no = '2344900292x87353'
       equipment.supplier = 'Strafford & Sons'
+      equipment.date_acquired = '2022-09-21'
       expect(equipment.save).to eq(false)
     end
 
@@ -58,6 +59,7 @@ RSpec.describe Equipment, type: :model do
       equipment.description = '3rd order Total station'
       equipment.serial_no = '2344900292x87353'
       equipment.supplier = 'Strafford & Sons'
+      equipment.date_acquired = '2022-09-21'
       expect(equipment.save).to eq(false)
     end
 
@@ -68,6 +70,7 @@ RSpec.describe Equipment, type: :model do
       equipment.description = '3rd order Total station'
       equipment.serial_no = '2344900292x87353'
       equipment.supplier = 'Strafford & Sons'
+      equipment.date_acquired = '2022-09-21'
       expect(equipment.save).to eq(false)
     end
 
@@ -78,6 +81,7 @@ RSpec.describe Equipment, type: :model do
       equipment.description = ''
       equipment.serial_no = '2344900292x87353'
       equipment.supplier = 'Strafford & Sons'
+      equipment.date_acquired = '2022-09-21'
       expect(equipment.save).to eq(false)
     end
 
@@ -88,6 +92,7 @@ RSpec.describe Equipment, type: :model do
       equipment.description = '3rd order Total station'
       equipment.serial_no = ''
       equipment.supplier = 'Strafford & Sons'
+      equipment.date_acquired = '2022-09-21'
       expect(equipment.save).to eq(false)
     end
 
@@ -98,6 +103,18 @@ RSpec.describe Equipment, type: :model do
       equipment.description = '3rd order Total station'
       equipment.serial_no = '2344900292x87353'
       equipment.supplier = ''
+      equipment.date_acquired = '2022-09-21'
+      expect(equipment.save).to eq(false)
+    end
+
+    it 'must have acquistion date' do
+      equipment.brand_name = 'Sokkia'
+      equipment.condition = 'intact'
+      equipment.model_number = 'we3435gyx7023za'
+      equipment.description = '3rd order Total station'
+      equipment.serial_no = '2344900292x87353'
+      equipment.supplier = 'Strafford & Sons'
+      equipment.date_acquired = ''
       expect(equipment.save).to eq(false)
     end
 
@@ -108,6 +125,7 @@ RSpec.describe Equipment, type: :model do
       equipment.description = ''
       equipment.serial_no = ''
       equipment.supplier = ''
+      equipment.date_acquired = ''
       expect(equipment.save).to eq(false)
     end
   end
