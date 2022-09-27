@@ -74,7 +74,6 @@ RSpec.describe Equipment, type: :model do
       end
     end
 
-
     describe 'condition' do
       it 'is not stated' do
         equipment = build(:equipment, brand_name: 'Sokkia', condition: '', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
