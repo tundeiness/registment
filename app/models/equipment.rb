@@ -15,5 +15,6 @@ class Equipment < ApplicationRecord
     photo.variant :thumbnail, resize_to_limit: [100, 100]
     photo.variant :medium, resize_to_limit: [400, 400]
   end
-  validates :brand_name, :serial_no, :condition, :date_acquired, :supplier, :model_number, :description, presence: true, length: { minimum: 5 }
+  validates :brand_name, :serial_no, :condition, :date_acquired, :supplier, :model_number, presence: true, length: { minimum: 3 }
+  validates :description, presence: true, length: { in: 10..200 }
 end
