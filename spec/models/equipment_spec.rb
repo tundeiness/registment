@@ -59,7 +59,7 @@ RSpec.describe Equipment, type: :model do
 
     describe 'brand name' do
       it 'is not stated' do
-        equipment = build(:equipment, brand_name: '', condition: '', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+        equipment = build(:equipment, brand_name: '', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
         expect(equipment).to_not be_valid
       end
 
