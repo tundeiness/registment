@@ -1,20 +1,25 @@
 FactoryBot.define do
   factory :equipment do
-    brand_name { Faker::Company.name }
-    serial_no { Faker::Alphanumeric.alphanumeric(number: 15) }
+    # brand_name { Faker::Company.name }
+    # serial_no { Faker::Alphanumeric.alphanumeric(number: 15) }
     # condition { 'MyString' }
-    trait :broken do
-      condition :broken
-    end
+    # trait :broken do
+    #   condition :broken
+    # end
 
-    trait :intact do
-      condition :intact
-    end
-
-    date_acquired { Faker::Date.in_date_period }
-    supplier { Faker::Name.name }
-    model_number { Faker::Company.duns_number }
-    description { Faker::Lorem.paragraph }
+    # trait :intact do
+    #   condition :intact
+    # end
+    # date_acquired { Faker::Date.in_date_period }
+    # supplier { Faker::Name.name }
+    # model_number { Faker::Company.duns_number }
+    # description { Faker::Lorem.paragraph }
+    brand_name { 'MyString' }
+    serial_no { 'MyString' }
+    date_acquired { '2022-09-21' }
+    supplier { 'MyString' }
+    model_number { 'MyString' }
+    description { 'MyText' }
   end
 end
 # equip = FactoryBot.create(:equipment)
