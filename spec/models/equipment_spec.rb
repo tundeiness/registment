@@ -80,16 +80,33 @@ RSpec.describe Equipment, type: :model do
       expect(equipment.save).to eq(true)
     end
 
-    it 'must have condition specified' do
-      equipment.brand_name = 'Sokkia'
-      equipment.condition = ''
-      equipment.model_number = 'we3435gyx7023za'
-      equipment.description = '3rd order Total station'
-      equipment.serial_no = '2344900292x87353'
-      equipment.supplier = 'Strafford & Sons'
-      equipment.date_acquired = '2022-09-21'
-      expect(equipment.save).to eq(false)
+    describe 'brand name' do
+      it 'is not stated' do
+        equipment = build(:equipment, brand_name: '', condition: '', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+        expect(equipment).to_not be_valid
+      end
+
+      it 'is stated' do
+        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+        expect(equipment).to be_valid
+      end
+
+      it 'has brand name with at least 3 characters long' do
+        equipment = build(:equipment, brand_name: 'Tyr', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+        expect(equipment).to be_valid
+      end
     end
+
+    # it 'must have condition specified' do
+    #   equipment.brand_name = 'Sokkia'
+    #   equipment.condition = ''
+    #   equipment.model_number = 'we3435gyx7023za'
+    #   equipment.description = '3rd order Total station'
+    #   equipment.serial_no = '2344900292x87353'
+    #   equipment.supplier = 'Strafford & Sons'
+    #   equipment.date_acquired = '2022-09-21'
+    #   expect(equipment.save).to eq(false)
+    # end
 
     describe 'condition' do
       it 'is not stated' do
