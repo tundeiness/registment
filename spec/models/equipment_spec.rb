@@ -171,11 +171,6 @@ RSpec.describe Equipment, type: :model do
         equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
         expect(equipment).to be_valid
       end
-
-      # it 'has a minimum of 3 characters' do
-      #   equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2d4', supplier: 'Tyr', date_acquired: '2022-09-21')
-      #   expect(equipment).to be_valid
-      # end
     end
 
 
