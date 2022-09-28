@@ -40,12 +40,15 @@ jobs:
         run: |
           sudo apt install -yqq libpq-dev
           gem install bundler
-
-      - name: Install Gems
-        run: |
           bundle install --jobs 4 --retry 3
           bundle exec rails db:prepare
           bundle exec rails test
+
+      # - name: Install Gems
+      #   run: |
+      #     bundle install --jobs 4 --retry 3
+      #     bundle exec rails db:prepare
+      #     bundle exec rails test
         # run: |
         #   bundle install
 
@@ -63,6 +66,7 @@ jobs:
       #     bundle exec rake test
 
       - name: Build and test with rspec
+        uses: actions/upload-artifact@v2
         env:
           PG_DATABASE: postgres
           PG_HOST: localhost
