@@ -89,16 +89,23 @@ name: CI
 
 on:
   push:
-    branches:
-      - '*'
+    - '*'
   pull_request:
-    branches:
-      - '*'
-  env:
-  # Your ruby version
-  RUBY: '2.7.3'
+    - '*'
+
 jobs:
-lint:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+      services:
+        postgres:
+          image: postgres:14.5
+          env:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: password
+          ports: ['5432:5432']
+
+  lint:
   name: Lint
   runs-on: ubuntu-latest
   steps:
@@ -107,26 +114,17 @@ lint:
     - name: Setup environment
       uses: ./.github/actions/setup
       with:
-        ruby-version: ${{ env.RUBY }}
+        ruby-version: 2.7.3
     - name: Run linters
       run: |
         bundle exec rake code_analysis
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:14.5
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: password
-        ports: ['5432:5432']
+  
     steps:
       - uses: actions/checkout@v2
       - name: Setup environment
         uses: ./.github/actions/setup
         with:
-          ruby-version: ${{ env.RUBY }}
+          ruby-version: 2.7.3
       - name: Get yarn cache
         id: yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -148,3 +146,11 @@ lint:
         run: |
           bin/rails db:create db:migrate
           bundle exec rspec
+
+
+
+
+#   env:
+#   # Your ruby version
+#   RUBY: '2.7.3'
+# jobs:
