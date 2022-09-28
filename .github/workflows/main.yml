@@ -4,49 +4,53 @@ on:
     branches: [ "main","dev", "equipment" ]
   pull_request:
     branches: [ "main","dev", "equipment" ]
+
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+
     services:
       postgres:
-        image: postgres:11-alpine
-        ports:
-          - "5432:5432"
+        image: postgres
         env:
-          POSTGRES_DB: rails_test
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
-    env:
-      RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      # Add or replace dependency steps here
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1.80.0
-        with:
-          bundler-cache: true
-      # Add or replace database setup steps here
-      - name: Set up database schema
-        run: bin/rails db:schema:load
-      # Add or replace test runners here
-      - name: Run tests
-        run: bin/rake
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
 
-  lint:
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1.80.0
-        with:
-          bundler-cache: true
-      # Add or replace any other lints here
-      - name: Security audit dependencies
-        run: bin/bundler-audit --update
-      - name: Security audit application code
-        run: bin/brakeman -q -w2
-      - name: Lint Ruby files
-        run: bin/rubocop --parallel
+    - uses: actions/checkout@v2
+
+    - uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+
+    - name: Install PostgreSQL client
+      run: |
+        sudo apt-get -yqq install libpq-dev
+
+    - name: Build App
+      env:
+        PGHOST: localhost
+        PGUSER: postgres
+        PGPASSWORD: postgres
+        RAILS_ENV: test
+      run: |
+        bin/rails db:setup
+
+    - name: Run Tests
+      env:
+        PGHOST: localhost
+        PGUSER: postgres
+        PGPASSWORD: postgres
+        RAILS_ENV: test
+      run: |
+        bundle exec rake test
+        bundle exec rake test:system
+        # or Rspec
+        bundle exec rspec
