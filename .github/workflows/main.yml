@@ -108,16 +108,16 @@ jobs:
   lint:
   name: Lint
   runs-on: ubuntu-latest
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Setup environment
-      uses: ./.github/actions/setup
-      with:
-        ruby-version: 2.7.3
-    - name: Run linters
-      run: |
-        bundle exec rake code_analysis
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup environment
+        uses: ./.github/actions/setup
+        with:
+          ruby-version: 2.7.3
+      - name: Run linters
+        run: |
+          bundle exec rake code_analysis
   
     steps:
       - uses: actions/checkout@v2
