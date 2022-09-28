@@ -97,20 +97,20 @@ on:
   env:
   # Your ruby version
   RUBY: '2.7.3'
-  jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Setup environment
-        uses: ./.github/actions/setup
-        with:
-          ruby-version: ${{ env.RUBY }}
-      - name: Run linters
-        run: |
-          bundle exec rake code_analysis
+jobs:
+lint:
+  name: Lint
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Setup environment
+      uses: ./.github/actions/setup
+      with:
+        ruby-version: ${{ env.RUBY }}
+    - name: Run linters
+      run: |
+        bundle exec rake code_analysis
   test:
     name: Test
     runs-on: ubuntu-latest
