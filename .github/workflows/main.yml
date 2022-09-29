@@ -41,6 +41,13 @@ jobs:
           gem install bundler
           bundle install --jobs 4 --retry 3
           yarn install
+      - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@477b21f02be01bcb8030d50f37cfec92bfa615b6
+        with:
+          ruby-version: 2.7.3
+      - run: bundle install
+      - name: Rubocop
+        run: rubocop
       # - name: Setup test database
       #   env:
       #     DATABASE_URL: postgres://postgres:@localhost:5432/test
