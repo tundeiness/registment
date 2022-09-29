@@ -8,36 +8,42 @@ RSpec.describe Equipment, type: :model do
     # end
 
     it { should validate_presence_of(:brand_name) }
+    it { should validate_presence_of(:condition) }
+    it { should validate_presence_of(:model_number) }
+    it { should validate_presence_of(:description) }
+    it { should validate_presence_of(:serial_no) }
+    it { should validate_presence_of(:supplier) }
+    it { should validate_presence_of(:date_acquired) }
 
-    it 'requires condition' do
-      equipment = Equipment.new(condition: '')
-      expect(equipment.valid?).to be_falsy
-    end
+    # it 'requires condition' do
+    #   equipment = Equipment.new(condition: '')
+    #   expect(equipment.valid?).to be_falsy
+    # end
 
-    it 'requires model number' do
-      equipment = Equipment.new(model_number: '')
-      expect(equipment.valid?).to be_falsy
-    end
+    # it 'requires model number' do
+    #   equipment = Equipment.new(model_number: '')
+    #   expect(equipment.valid?).to be_falsy
+    # end
 
-    it 'requires description' do
-      equipment = Equipment.new(description: '')
-      expect(equipment.valid?).to be_falsy
-    end
+    # it 'requires description' do
+    #   equipment = Equipment.new(description: '')
+    #   expect(equipment.valid?).to be_falsy
+    # end
 
-    it 'requires serial number' do
-      equipment = Equipment.new(serial_no: '')
-      expect(equipment.valid?).to be_falsy
-    end
+    # it 'requires serial number' do
+    #   equipment = Equipment.new(serial_no: '')
+    #   expect(equipment.valid?).to be_falsy
+    # end
 
-    it 'requires supplier name' do
-      equipment = Equipment.new(supplier: '')
-      expect(equipment.valid?).to be_falsy
-    end
+    # it 'requires supplier name' do
+    #   equipment = Equipment.new(supplier: '')
+    #   expect(equipment.valid?).to be_falsy
+    # end
 
-    it 'requires date of acquisition' do
-      equipment = Equipment.new(date_acquired: '')
-      expect(equipment.valid?).to be_falsy
-    end
+    # it 'requires date of acquisition' do
+    #   equipment = Equipment.new(date_acquired: '')
+    #   expect(equipment.valid?).to be_falsy
+    # end
 
     # it { should validate_presence_of(:request) }
   end
