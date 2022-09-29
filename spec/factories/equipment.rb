@@ -4,11 +4,11 @@ FactoryBot.define do
     serial_no { Faker::Alphanumeric.alphanumeric(number: 15) }
     # condition { 'MyString' }
     trait :broken do
-      condition { 'broken' }
+      condition { :broken }
     end
 
     trait :intact do
-      condition { 'intact' }
+      condition { :intact }
     end
     date_acquired { Faker::Date.in_date_period }
     supplier { Faker::Name.name }
