@@ -1,192 +1,139 @@
 require 'rails_helper'
 
 RSpec.describe Equipment, type: :model do
- 
-  # describe 'brand_name' do
-  #   it 'must have a brand_name' do
-  #     equip = build(:equipment, brand_name: '')
-  #     expect(equip.brand_name).to be_empty
-  #   end
-
-  #   it 'has a brand_name' do
-  #     equip = build(:equipment, brand_name: 'Sokkia')
-  #     expect(equip.brand_name).to eq('Sokkia')
-  #   end
-  # end
-
-  # describe 'supplier' do
-  #   it 'must have a supplier name' do
-  #     equip = build(:equipment, supplier: '')
-  #     expect(equip.supplier).to be_empty
-  #   end
-
-  #   it 'has a supplier name' do
-  #     equip = build(:equipment, supplier: 'Skiddo Nig Ltd')
-  #     expect(equip.supplier).to eq('Skiddo Nig Ltd')
-  #   end
-
-  #   it 'has a supplier name with at least 3 characters long' do
-  #     equip = build(:equipment, supplier: 'Skiddo Nig Ltd')
-  #     expect(equip.supplier).to eq('Skiddo Nig Ltd')
-  #   end
-  # end
-
-  # describe 'serial_no' do
-  #   it 'must have a serial number' do
-  #     equip = build(:equipment, serial_no: '')
-  #     expect(equip.serial_no).to be_empty
-  #   end
-
-  #   it 'must have a serial number' do
-  #     equip = build(:equipment, serial_no: 'we3435gyx78199023za')
-  #     expect(equip.serial_no).to eq('we3435gyx78199023za')
-  #   end
-  # end
-
-  # describe 'description' do
-  #   it 'must have a description' do
-  #     equip = build(:equipment, serial_no: '')
-  #     expect(equip.serial_no).to be_empty
-  #   end
-
-  #   it 'has a description with at least 3 characters long' do
-  #     equip = build(:equipment, serial_no: 'we3435gyx78199023za')
-  #     expect(equip.serial_no).to eq('we3435gyx78199023za')
-  #   end
-  # end
-
-  context 'validation tests' do
-
-    describe 'brand name' do
-      it 'is not stated' do
+  describe 'Brand name' do
+    context 'when it is not stated' do
+      it 'is not valid' do
         equipment = build(:equipment, brand_name: '', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
         expect(equipment).to_not be_valid
       end
-
-      it 'is stated' do
+    end
+    context 'when it is stated' do
+      it 'is valid' do
         equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
         expect(equipment).to be_valid
       end
-
-      it 'has brand name with at least 3 characters long' do
+    end
+    context 'character count' do
+      it 'is at least 3 characters long' do
         equipment = build(:equipment, brand_name: 'Tyr', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
         expect(equipment).to be_valid
       end
     end
+  end
 
-    context 'condition' do
-      it 'is not stated' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: '', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to_not be_valid
-      end
-
-      it 'is stated' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to be_valid
-      end
-
-      it 'has condition specified with at least 3 characters long' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to be_valid
-      end
+  context 'condition' do
+    it 'is not stated' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: '', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to_not be_valid
     end
 
-
-    context 'model number' do
-      it 'cannot be empty' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: '', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to_not be_valid
-      end
-
-      it 'has model number' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to be_valid
-      end
-
-      it 'has model number with at least 3 character long' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to be_valid
-      end
+    it 'is stated' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to be_valid
     end
 
-    context 'description' do
-      it 'cannot be empty' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to_not be_valid
-      end
+    it 'has condition specified with at least 3 characters long' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to be_valid
+    end
+  end
 
-      it 'is not empty' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to be_valid
-      end
 
-      it 'has a minimum of 10 characters' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to be_valid
-      end
+  context 'model number' do
+    it 'cannot be empty' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: '', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to_not be_valid
     end
 
-    context 'serial number' do
-      it 'cannot be empty' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: 'Ut cillum sit cillum cupidatat ullamco fugiat quis duis fugiat ullamco magna.', serial_no: '', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to_not be_valid
-      end
-
-      it 'is not empty' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to be_valid
-      end
-
-      it 'has a minimum of 3 characters' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2d4', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to be_valid
-      end
+    it 'has model number' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to be_valid
     end
 
-    context 'supplier' do
-      it 'cannot be empty' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: 'Ut cillum sit cillum cupidatat ullamco fugiat quis duis fugiat ullamco magna.', serial_no: '2344900292x87353', supplier: '', date_acquired: '2022-09-21')
-        expect(equipment).to_not be_valid
-      end
+    it 'has model number with at least 3 character long' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to be_valid
+    end
+  end
 
-      it 'is not empty' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to be_valid
-      end
-
-      it 'has a minimum of 3 characters' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2d4', supplier: 'Tyr', date_acquired: '2022-09-21')
-        expect(equipment).to be_valid
-      end
+  context 'description' do
+    it 'cannot be empty' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to_not be_valid
     end
 
-    context 'acquistion date' do
-      it 'cannot be empty' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: 'Ut cillum sit cillum cupidatat ullamco fugiat quis duis fugiat ullamco magna.', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '')
-        expect(equipment).to_not be_valid
-      end
-
-      it 'is not empty' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to be_valid
-      end
+    it 'is not empty' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to be_valid
     end
 
-    context 'Fields' do
-      it 'cannot be empty' do
-        equipment = build(:equipment, brand_name: '', condition: '', model_number: '', description: '', serial_no: '', supplier: '', date_acquired: '')
-        expect(equipment).to_not be_valid
-      end
+    it 'has a minimum of 10 characters' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to be_valid
+    end
+  end
 
-      it 'is not empty' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to be_valid
-      end
+  context 'serial number' do
+    it 'cannot be empty' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: 'Ut cillum sit cillum cupidatat ullamco fugiat quis duis fugiat ullamco magna.', serial_no: '', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to_not be_valid
+    end
 
-      it 'has a minimum of 3 characters' do
-        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2d4', supplier: 'Tyro & Sons', date_acquired: '2022-09-21')
-        expect(equipment).to be_valid
-      end
+    it 'is not empty' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to be_valid
+    end
+
+    it 'has a minimum of 3 characters' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2d4', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to be_valid
+    end
+  end
+
+  context 'supplier' do
+    it 'cannot be empty' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: 'Ut cillum sit cillum cupidatat ullamco fugiat quis duis fugiat ullamco magna.', serial_no: '2344900292x87353', supplier: '', date_acquired: '2022-09-21')
+      expect(equipment).to_not be_valid
+    end
+
+    it 'is not empty' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to be_valid
+    end
+
+    it 'has a minimum of 3 characters' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2d4', supplier: 'Tyr', date_acquired: '2022-09-21')
+      expect(equipment).to be_valid
+    end
+  end
+
+  context 'acquistion date' do
+    it 'cannot be empty' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: 'Ut cillum sit cillum cupidatat ullamco fugiat quis duis fugiat ullamco magna.', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '')
+      expect(equipment).to_not be_valid
+    end
+
+    it 'is not empty' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to be_valid
+    end
+  end
+
+  context 'Fields' do
+    it 'cannot be empty' do
+      equipment = build(:equipment, brand_name: '', condition: '', model_number: '', description: '', serial_no: '', supplier: '', date_acquired: '')
+      expect(equipment).to_not be_valid
+    end
+
+    it 'is not empty' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to be_valid
+    end
+
+    it 'has a minimum of 3 characters' do
+      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2d4', supplier: 'Tyro & Sons', date_acquired: '2022-09-21')
+      expect(equipment).to be_valid
     end
   end
 
