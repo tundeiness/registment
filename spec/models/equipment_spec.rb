@@ -2,10 +2,12 @@ require 'rails_helper'
 
 RSpec.describe Equipment, type: :model do
   describe 'validations' do
-    it 'requires brand name' do
-      equipment = Equipment.new(brand_name: '')
-      expect(equipment.valid?).to be_falsy
-    end
+    # it 'requires brand name' do
+    #   equipment = Equipment.new(brand_name: '')
+    #   expect(equipment.valid?).to be_falsy
+    # end
+
+    it { should validate_presence_of(:brand_name) }
 
     it 'requires condition' do
       equipment = Equipment.new(condition: '')
@@ -36,21 +38,28 @@ RSpec.describe Equipment, type: :model do
       equipment = Equipment.new(date_acquired: '')
       expect(equipment.valid?).to be_falsy
     end
+
+    # it { should validate_presence_of(:request) }
   end
 
-  it 'belongs to request' do
-    equipment = Equipment.new(brand_name: '', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21', request: nil)
-    expect(equipment.valid?).to be_falsy
-  end
+  # it 'belongs to request' do
+  #   equipment = Equipment.new(brand_name: '', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21', request: nil)
+  #   expect(equipment.valid?).to be_falsy
+  # end
 
-  it 'has belong_to request association' do
-    request = build(:request)
-    equipment = build(:equipment, request)
-    expect(equipment.request).to eq(request)
+  # it 'has belong_to request association' do
+  #   request = build(:request)
+  #   equipment = build(:equipment, request)
+  #   expect(equipment.request).to eq(request)
 
-    e = Equipment.reflect_on_association(:request)
-    expect(e.macro).to eq(:belongs_to)
-  end
+  #   e = Equipment.reflect_on_association(:request)
+  #   expect(e.macro).to eq(:belongs_to)
+  # end
+
+  # it { should belong_to(:request) }
+
+  # it { should validate_uniqueness_of(:brand_name).scoped_to(:request_id).with_message('no two person can book the same equipment') }
+
 
   # describe 'Brand name' do
   #   context 'when it is not stated' do
