@@ -6,8 +6,13 @@ on:
     branches: [ "main","dev", "equipment" ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        ruby: ['2.7', '3.0', '3.1', head, jruby, jruby-head, truffleruby, truffleruby-head]
+    runs-on: ${{ matrix.os }}
 
     services:
       postgres:
@@ -24,11 +29,14 @@ jobs:
           - 5432:5432
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+      - uses: actions/setup-ruby@v1
         with:
-          ruby-version: 2.7.3
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true 
+      - run: bundle exec rake
+
 
       - name: Install PostgreSQL client
         run: |
