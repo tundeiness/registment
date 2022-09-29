@@ -8,7 +8,6 @@
 # t.datetime "created_at", null: false
 # t.datetime "updated_at", null: false
 
-
 class Equipment < ApplicationRecord
   # belongs_to :user
   has_one_attached :photo do |photo|

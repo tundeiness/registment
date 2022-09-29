@@ -66,7 +66,6 @@ RSpec.describe Equipment, type: :model do
 
   # it { should validate_uniqueness_of(:brand_name).scoped_to(:request_id).with_message('no two person can book the same equipment') }
 
-
   # describe 'Brand name' do
   #   context 'when it is not stated' do
   #     it 'is not valid' do
@@ -244,7 +243,7 @@ RSpec.describe Equipment, type: :model do
 
   context 'Association tests' do
     describe 'model associations' do
-      # it 'has many request' do 
+      # it 'has many request' do
       #   has_many_assc = Equipment.reflect_on_association(:request)
       #   expect(has_many_assc.macro).to eq :has_many
       # end

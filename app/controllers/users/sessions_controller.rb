@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  respond_to :json 
+  respond_to :json
 
+  private
 
-  private 
-
-  def respond_with(resource, options={}) 
-      render json: {
-        status: { code: 200, message: 'Sign in successful', data: current_user }
-      }, status: :ok
-    
+  def respond_with(_resource, _options = {})
+    render json: {
+      status: { code: 200, message: 'Sign in successful', data: current_user }
+    }, status: :ok
   end
 
   def respond_to_on_destroy
@@ -21,11 +19,11 @@ class Users::SessionsController < Devise::SessionsController
         status: 200,
         message: 'sign out successful'
       }, status: :ok
-    else 
+    else
       render json: {
         status: 401,
-        message: "user hsa no active session"
-      }, status: :unauthorized 
+        message: 'user hsa no active session'
+      }, status: :unauthorized
     end
   end
   # before_action :configure_sign_in_params, only: [:create]
