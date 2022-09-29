@@ -38,6 +38,20 @@ RSpec.describe Equipment, type: :model do
     end
   end
 
+  it 'belongs to request' do
+    equipment = Equipment.new(brand_name: '', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21', request: nil)
+    expect(equipment.valid?).to be_falsy
+  end
+
+  it 'has belong_to request association' do
+    request = build(:request)
+    equipment = build(:equipment, request)
+    expect(equipment.request).to eq(request)
+
+    e = Equipment.reflect_on_association(:request)
+    expect(e.macro).to eq(:belongs_to)
+  end
+
   # describe 'Brand name' do
   #   context 'when it is not stated' do
   #     it 'is not valid' do
