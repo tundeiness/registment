@@ -153,20 +153,26 @@ RSpec.describe Equipment, type: :model do
     end
   end
 
-  context 'Fields' do
-    it 'cannot be empty' do
-      equipment = build(:equipment, brand_name: '', condition: '', model_number: '', description: '', serial_no: '', supplier: '', date_acquired: '')
-      expect(equipment).to_not be_valid
+  describe 'Fields' do
+    context 'when they are not filled' do
+      it 'is not valid' do
+        equipment = build(:equipment, brand_name: '', condition: '', model_number: '', description: '', serial_no: '', supplier: '', date_acquired: '')
+        expect(equipment).to_not be_valid
+      end
     end
 
-    it 'is not empty' do
-      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
-      expect(equipment).to be_valid
+    context 'when they are all filled' do
+      it 'is valid' do
+        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21')
+        expect(equipment).to be_valid
+      end
     end
 
-    it 'has a minimum of 3 characters' do
-      equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2d4', supplier: 'Tyro & Sons', date_acquired: '2022-09-21')
-      expect(equipment).to be_valid
+    context 'with character count of at least 3 characters long' do
+      it 'is valid' do
+        equipment = build(:equipment, brand_name: 'Sokkia', condition: 'broken', model_number: 'we3', description: '3rd order Total station', serial_no: '2d4', supplier: 'Tyro & Sons', date_acquired: '2022-09-21')
+        expect(equipment).to be_valid
+      end
     end
   end
 
