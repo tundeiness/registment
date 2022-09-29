@@ -30,7 +30,6 @@ jobs:
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: postgres
       run: |
-        gem install bundler:2.3.22
         bundle install --jobs 4 --retry 3
         bundle exec rails db:create
         bundle exec rails db:migrate
