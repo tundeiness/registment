@@ -1,4 +1,3 @@
-# rubocop:disable Lint/EmptyBlock
 require 'rails_helper'
 
 RSpec.describe Equipment, type: :model do
@@ -7,6 +6,7 @@ RSpec.describe Equipment, type: :model do
     #   equipment = Equipment.new(brand_name: '')
     #   expect(equipment.valid?).to be_falsy
     # end
+    subject { build(:equipment) }
 
     it { should validate_presence_of(:brand_name) }
     it { should validate_presence_of(:condition) }
@@ -49,8 +49,14 @@ RSpec.describe Equipment, type: :model do
     # it { should validate_presence_of(:request) }
   end
 
-  describe 'scope' do
-  end
+  # describe '.newest' do
+  #   it 'includes equipment that are new' do
+  #     new_equipment = build(:equipment, created_at: Date.today)
+  #     expect(
+  #       described_class.newest
+  #     ).to include(new_equipment)
+  #   end
+  # end
 
   # it 'belongs to request' do
   #   equipment = Equipment.new(brand_name: '', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21', request: nil)
@@ -247,7 +253,8 @@ RSpec.describe Equipment, type: :model do
 
   context 'Association tests' do
     describe 'model associations' do
-      # it 'has many request' do
+      # it 'has many request' do 
+      # it { should belong_to(:request).class_name('Request')}
       #   has_many_assc = Equipment.reflect_on_association(:request)
       #   expect(has_many_assc.macro).to eq :has_many
       # end

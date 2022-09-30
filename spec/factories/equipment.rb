@@ -14,6 +14,7 @@ FactoryBot.define do
     supplier { Faker::Name.name }
     model_number { Faker::Company.duns_number }
     description { Faker::Lorem.paragraph }
+    created_at { Faker::Date.in_date_period }
     # brand_name { 'MyString' }
     # serial_no { 'MyString' }
     # date_acquired { '2022-09-21' }
