@@ -253,7 +253,7 @@ RSpec.describe Equipment, type: :model do
 
   context 'Association tests' do
     describe 'model associations' do
-      # it 'has many request' do 
+      # it 'has many request' do
       # it { should belong_to(:request).class_name('Request')}
       #   has_many_assc = Equipment.reflect_on_association(:request)
       #   expect(has_many_assc.macro).to eq :has_many
@@ -261,5 +261,3 @@ RSpec.describe Equipment, type: :model do
     end
   end
 end
-
-# rubocop:enable Lint/EmptyBlock
