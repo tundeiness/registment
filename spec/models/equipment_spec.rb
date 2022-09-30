@@ -1,3 +1,4 @@
+# rubocop:disable Lint/EmptyBlock
 require 'rails_helper'
 
 RSpec.describe Equipment, type: :model do
@@ -48,8 +49,7 @@ RSpec.describe Equipment, type: :model do
     # it { should validate_presence_of(:request) }
   end
 
-  describe 'scope' do 
-    
+  describe 'scope' do
   end
 
   # it 'belongs to request' do
@@ -254,3 +254,5 @@ RSpec.describe Equipment, type: :model do
     end
   end
 end
+
+# rubocop:enable Lint/EmptyBlock
