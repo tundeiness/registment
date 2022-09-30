@@ -48,6 +48,10 @@ RSpec.describe Equipment, type: :model do
     # it { should validate_presence_of(:request) }
   end
 
+  describe 'scope' do 
+    
+  end
+
   # it 'belongs to request' do
   #   equipment = Equipment.new(brand_name: '', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21', request: nil)
   #   expect(equipment.valid?).to be_falsy
