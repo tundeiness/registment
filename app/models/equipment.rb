@@ -8,5 +8,5 @@ class Equipment < ApplicationRecord
   validates :description, presence: true, length: { in: 10..200 }
 
   scope :newest, -> { order(created_at: :asc) }
-  scope :oldest, -> { order(created_at: :desc) }
+  # scope :oldest, -> { order(created_at: :desc) }
 end
