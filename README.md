@@ -23,3 +23,4 @@ Things you may want to cover:
 
 * ...
 bin/rails generate migration AddServiceDateToEquipment service_date:date
+bin/rails generate migration AddLoanStatusToEquipment loan_status:string
