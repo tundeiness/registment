@@ -1,5 +1,7 @@
 class Equipment < ApplicationRecord
-  before_save :update_service, :update_service_date
+  # around_save :update_service, :update_service_date
+  after_commit :update_service, :update_service_date
+
   # belongs_to :user
   has_one_attached :photo do |photo|
     photo.variant :thumbnail, resize_to_limit: [100, 100]
@@ -13,10 +15,12 @@ class Equipment < ApplicationRecord
   # scope :oldest, -> { order(created_at: :desc) }
   def update_service
     if service_date.nil?
-      self.service_date = date_acquired + 30.days
+      self.service_date = date_acquired + 30
       # self.service_date.update_column(dog_age: age)
+      # d = self.date_acquired + 30
+      # equipment.service_date.update_column(d)
     else
-      self.service_date += 30.days
+      self.service_date += 30
     end
   end
 

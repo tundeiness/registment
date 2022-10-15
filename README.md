@@ -22,3 +22,4 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+bin/rails generate migration AddServiceDateToEquipment service_date:date
