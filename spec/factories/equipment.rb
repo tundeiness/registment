@@ -2,23 +2,11 @@ FactoryBot.define do
   factory :equipment do
     brand_name { Faker::Company.name }
     serial_no { Faker::Alphanumeric.alphanumeric(number: 15) }
-    condition { 'new' }
+    condition { 'intact' }
 
     trait :broken do
       condition { :broken }
     end
-
-    trait :repaired do
-      condition { :repaired }
-    end
-
-    trait :under_repair do
-      condition { :under_repair }
-    end
-
-    # trait :intact do
-    #   condition { :intact }
-    # end
     date_acquired { Faker::Date.in_date_period }
     supplier { Faker::Name.name }
     model_number { Faker::Company.duns_number }
