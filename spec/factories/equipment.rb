@@ -7,6 +7,21 @@ FactoryBot.define do
     trait :broken do
       condition { :broken }
     end
+
+    loan_status { 'available' }
+
+    trait :due_in do
+      loan_status { :due_in }
+    end
+
+    trait :overdue do
+      loan_status { :overdue }
+    end
+
+    trait :repairs do
+      loan_status { :repairs }
+    end
+
     date_acquired { Faker::Date.in_date_period }
     supplier { Faker::Name.name }
     model_number { Faker::Company.duns_number }
