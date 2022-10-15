@@ -1,6 +1,7 @@
 class Equipment < ApplicationRecord
   # around_save :update_service, :update_service_date
-  after_commit :update_service, :update_service_date
+  before_save :update_service
+  # after_commit :update_service, :update_service_date
 
   # belongs_to :user
   has_one_attached :photo do |photo|
@@ -9,24 +10,21 @@ class Equipment < ApplicationRecord
   end
   validates :brand_name, :serial_no, :condition, :date_acquired, :supplier, :model_number, presence: true, length: { minimum: 3 }
   validates :description, presence: true, length: { in: 10..200 }
-  validates :service_date
+  # validates :service_date
 
   scope :newest, -> { order(created_at: :asc) }
   # scope :oldest, -> { order(created_at: :desc) }
   def update_service
     if service_date.nil?
       self.service_date = date_acquired + 30
-      # self.service_date.update_column(dog_age: age)
-      # d = self.date_acquired + 30
-      # equipment.service_date.update_column(d)
     else
       self.service_date += 30
     end
   end
 
-  def update_service_date
-    ActiveRecord::Base.transaction do
-      user.update_column(created_at: :date_acquired)
-    end
-  end
+  # def update_service_date
+  #   ActiveRecord::Base.transaction do
+  #     user.update_column(created_at: :date_acquired)
+  #   end
+  # end
 end
