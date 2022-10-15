@@ -27,7 +27,7 @@ FactoryBot.define do
     model_number { Faker::Company.duns_number }
     description { Faker::Lorem.paragraph }
     created_at { Faker::Date.in_date_period }
-    service_date { Faker::Date.in_date_period }
+    service_date { Faker::Date.in_date_period + 30.days }
     # brand_name { 'MyString' }
     # serial_no { 'MyString' }
     # date_acquired { '2022-09-21' }
