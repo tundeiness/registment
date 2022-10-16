@@ -15,6 +15,8 @@ RSpec.describe Equipment, type: :model do
     it { should validate_presence_of(:serial_no) }
     it { should validate_presence_of(:supplier) }
     it { should validate_presence_of(:date_acquired) }
+    it { should validate_presence_of(:loan_status) }
+    it { should validate_presence_of(:service_date) }
 
     # it 'requires condition' do
     #   equipment = Equipment.new(condition: '')
