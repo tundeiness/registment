@@ -54,18 +54,14 @@ RSpec.describe Equipment, type: :model do
 
     before do
       allow(Equipment).to receive(:newest).and_return([newest])
-      # allow(Article).to receive(:promoted).and_return([promoted])
     end
 
     it { expect(Equipment.newest).to include newest }
-
-    # it 'includes equipment that are new' do
-    #   new_equipment = build(:equipment, created_at: Date.today)
-    #   expect(
-    #     Equipment.newest
-    #   ).to include(new_equipment)
-    # end
   end
+
+  # describe '.update_service' do
+  #   let(:update_service) {build_stubbed :equipment, service_date: }
+  # end
 
   # it 'belongs to request' do
   #   equipment = Equipment.new(brand_name: '', condition: 'broken', model_number: 'we3435gyx7023za', description: '3rd order Total station', serial_no: '2344900292x87353', supplier: 'Strafford & Sons', date_acquired: '2022-09-21', request: nil)
