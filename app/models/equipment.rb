@@ -1,6 +1,7 @@
 class Equipment < ApplicationRecord
   # around_save :update_service, :update_service_date
   before_save :update_service
+  SERVICE_DAYS = 30
   # after_commit :update_service, :update_service_date
 
   # belongs_to :user
@@ -17,9 +18,9 @@ class Equipment < ApplicationRecord
   # scope :oldest, -> { order(created_at: :desc) }
   def update_service
     if service_date.nil?
-      self.service_date = date_acquired + 30
+      self.service_date = date_acquired + SERVICE_DAYS
     else
-      self.service_date += 30
+      self.service_date += SERVICE_DAYS
     end
   end
 
