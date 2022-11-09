@@ -25,3 +25,4 @@ Things you may want to cover:
 bin/rails generate migration AddServiceDateToEquipment service_date:date
 bin/rails generate migration AddLoanStatusToEquipment loan_status:string
 rails g model Request user:references equipment:references serial_no:string
+rails g migration add_role_to_users role:string
