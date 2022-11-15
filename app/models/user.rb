@@ -6,7 +6,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
 
-  ROLES = %w{super_admin admin}
+  ROLES = %w{super_admin admin user}
+
+  has_many :bookings
+  has_many :equipment, through: :bookings
 
   # has_many :equipments
 
