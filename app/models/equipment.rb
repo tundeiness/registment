@@ -15,6 +15,9 @@ class Equipment < ApplicationRecord
   validates :service_date, presence: true
   validates :loan_status, presence: true
 
+  has_many :bookings
+  has_many :users, through: :bookings
+
   scope :newest, -> { order(created_at: :asc) }
   # scope :oldest, -> { order(created_at: :desc) }
   def update_service
