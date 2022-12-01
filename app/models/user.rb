@@ -6,16 +6,16 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
 
-  ROLES = %w{super_admin admin user}
+  ROLES = %w{super_admin admin user}.freeze
 
   has_many :bookings
   has_many :equipment, through: :bookings
 
   # has_many :equipments
 
-  # def jwt_payload 
-  #   super
-  # end
+  def jwt_payload
+    super
+  end
 
   # has_many :bookings, class_name: 'Bookings', foreign_key: 'customer_id'
   # belongs_to :user, class_name: 'User', foreign_key: 'customer_id'

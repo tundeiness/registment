@@ -7,5 +7,8 @@ class Booking < ApplicationRecord
 
   def set_status
     self.status ||= :available if status.nil?
+    # self.set_status ||= :available if status.nil?
   end
+
+  # delegate :service_date, to: :equipment
 end
