@@ -7,11 +7,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  get '/dashboard' => 'customers#index'
-  namespace :api do
-    namespace :v1 do
-      #  user resources
-      resources :equipments
-    end
-  end
+  # get '/dashboard' => 'customers#index'
+  # namespace :api do
+  #   namespace :v1 do
+  #     #  user resources
+  #     resources :equipments
+  #   end
+  # end
 end

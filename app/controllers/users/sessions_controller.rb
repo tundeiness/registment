@@ -20,7 +20,7 @@ class Users::SessionsController < Devise::SessionsController
     else
       render json: {
         status: 401,
-        message: 'user hsa no active session'
+        message: 'user has no active session'
       }, status: :unauthorized
     end
   end
