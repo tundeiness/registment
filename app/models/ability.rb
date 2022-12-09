@@ -7,17 +7,19 @@ class Ability
     if user.super_admin?
       can :manage, :all
     elsif user.admin?
-      can :read, Booking, user_id: user_id
-      can :create, Booking, user_id: user_id
-      can :create, Equipment, user_id: user_id
-      can :read, Equipment, user_id: user_id
+      # can :read, Booking, user_id: user_id
+      # can :create, Booking, user_id: user_id
+      # can :create, Equipment, user_id: user_id
+      # can :read, Equipment, user_id: user_id
+      can %i[read create], Booking
+      can %i[read create], Equipment
     end
     # Define abilities for the user here. For example:
     #
     #   return unless user.present?
     #   can :read, :all
-      # return unless user.admin?
-      # can :manage, :all
+    # return unless user.admin?
+    # can :manage, :all
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.
