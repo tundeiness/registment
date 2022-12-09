@@ -4,15 +4,25 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.super_admin?
-      can :manage, :all
-    elsif user.admin?
+    # if user.super_admin?
+    #   can :manage, :all
+    # elsif user.admin?
       # can :read, Booking, user_id: user_id
       # can :create, Booking, user_id: user_id
       # can :create, Equipment, user_id: user_id
       # can :read, Equipment, user_id: user_id
+    #   can %i[read create], Booking
+    #   can %i[read create], Equipment
+    # end
+
+    case user
+    when user.super_admin?
+      can :manage, :all
+    when user.admin?
       can %i[read create], Booking
       can %i[read create], Equipment
+    else
+      can :read, Equipment
     end
     # Define abilities for the user here. For example:
     #
