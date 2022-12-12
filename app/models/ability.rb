@@ -19,7 +19,7 @@ class Ability
     when user.super_admin?
       can :manage, :all
     when user.admin?
-      can %i[read create], Booking
+      can %i[read create update], Booking
       can %i[read create], Equipment
     else
       can :read, Equipment

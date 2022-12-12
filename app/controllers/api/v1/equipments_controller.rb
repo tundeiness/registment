@@ -34,6 +34,12 @@ class Api::V1::EquipmentsController < ApplicationController
 
   private
 
+  def set_equipment
+    @equipment = cureent_user.equipment.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => error
+    render json: error.message, status: :unauthorized
+  end
+
   def equipment_params
     params.require(:equipment).permit(:brand_name, :photo, :serial_no, :condition, :date_acquired, :supplied_by, :model_number, :description)
   end
