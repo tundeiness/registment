@@ -32,10 +32,19 @@ class Api::V1::EquipmentsController < ApplicationController
     end
   end
 
+  def destory 
+    if @equipment.destory 
+      render json: { data: 'Equipment deleted', status: 'success' }, status: :ok 
+    else
+      render json: {data: 'Something went wrong', status: 'failed' }
+    end
+  end
+
   private
 
   def set_equipment
-    @equipment = cureent_user.equipment.find(params[:id])
+    # @equipment = cureent_user.equipment.find(params[:id])
+    @equipment = Equipment.find(params[:id])
   rescue ActiveRecord::RecordNotFound => error
     render json: error.message, status: :unauthorized
   end
