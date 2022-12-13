@@ -18,11 +18,13 @@ class Ability
     case user
     when user.super_admin?
       can :manage, :all
+      # can :manage, :dashboard
     when user.admin?
       can %i[read create update], Booking
       can %i[read create], Equipment
     else
       can :read, Equipment
+      cannot :manage, Booking
     end
     # Define abilities for the user here. For example:
     #
