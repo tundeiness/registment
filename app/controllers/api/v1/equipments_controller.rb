@@ -3,7 +3,7 @@ class Api::V1::EquipmentsController < ApplicationController
   # before_action :set_company, only: [:show, :update, :destroy]
 
   def index
-    @equipments ||= Equipment.all
+    @equipment ||= Equipments.all
     render json: @equipments.map { |item|
       if item.photo.attached?
         item.as_json(only: :brand_name).merge(photo_path: url_for(item.photo))
@@ -14,29 +14,29 @@ class Api::V1::EquipmentsController < ApplicationController
   end
 
   def show
-    @equipments = Equipment.find(params[:id])
-    if @equipments.photo.attached? 
-      render json: @equipments.as_json(only: %i[brand_name]).merge(photo_path: url_for(@equipments.avatar)), status: :ok
+    @equipment = Equipments.find(params[:id])
+    if @equipment.photo.attached? 
+      render json: @equipment.as_json(only: %i[brand_name]).merge(photo_path: url_for(@equipment.avatar)), status: :ok
     else
-      render json: @equipments.as_json only: :brand_name, status: :ok # rubocop:disable Lint/Syntax
+      # render json: @equipments.as_json only: :brand_name # rubocop:disable Lint/Syntax
+      render json: @equipment, status: :ok
     end
   end
 
   def create
-    @equipment = equipment.new(equipment_params)
+    @equipment = Equipments.new(equipment_params)
     if @equipment.save
-      render json: @equipment, status: :ok
+      render json: @equipment, status: :created
     else
-      render json: { data: @equipment.errors.full_messages, status: "failed" },
-        status: :unprocessable_entity
+      render json: { errors: @equipment.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  def destory 
-    if @equipment.destory 
+  def destory
+    if @equipment.destory
       render json: { data: 'Equipment deleted', status: 'success' }, status: :ok 
     else
-      render json: {data: 'Something went wrong', status: 'failed' }
+      render json: { data: 'Something went wrong', status: 'failed' }
     end
   end
 
@@ -44,12 +44,12 @@ class Api::V1::EquipmentsController < ApplicationController
 
   def set_equipment
     # @equipment = cureent_user.equipment.find(params[:id])
-    @equipment = Equipment.find(params[:id])
+    @equipment = Equipments.find(params[:id])
   rescue ActiveRecord::RecordNotFound => error
     render json: error.message, status: :unauthorized
   end
 
   def equipment_params
-    params.require(:equipment).permit(:brand_name, :photo, :serial_no, :condition, :date_acquired, :supplied_by, :model_number, :description)
+    params.require(:equipments).permit(:brand_name, :photo, :serial_no, :condition, :date_acquired, :supplied_by, :model_number, :description, :service_date, :supplier)
   end
 end
