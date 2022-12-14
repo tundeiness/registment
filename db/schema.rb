@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_11_160228) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_14_165642) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,13 +61,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_11_160228) do
     t.string "brand_name", null: false
     t.string "serial_no", null: false
     t.string "condition", null: false
-    t.date "date_acquired", null: false
     t.string "supplier", null: false
     t.string "model_number", null: false
     t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "service_date"
     t.string "loan_status", default: "available"
   end
 

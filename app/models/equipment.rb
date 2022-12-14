@@ -2,7 +2,8 @@ class Equipment < ApplicationRecord
   # around_save :update_service, :update_service_date
   # before_save :update_service
   before_create :update_service
-  SERVICE_DAYS = 30
+
+  SERVICE_DAYS = Date.today.advance(days: 30)
   # after_commit :update_service, :update_service_date
 
   # belongs_to :user

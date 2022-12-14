@@ -1,9 +1,10 @@
 class Api::V1::EquipmentsController < ApplicationController
   load_and_authorize_resource
+  before_action :set_equipment, only: [:show, :destroy]
   # before_action :set_company, only: [:show, :update, :destroy]
 
   def index
-    @equipment ||= Equipments.all
+    @equipment ||= Equipment.all
     render json: @equipments.map { |item|
       if item.photo.attached?
         item.as_json(only: :brand_name).merge(photo_path: url_for(item.photo))
@@ -14,7 +15,7 @@ class Api::V1::EquipmentsController < ApplicationController
   end
 
   def show
-    @equipment = Equipments.find(params[:id])
+    @equipment = Equipment.find(params[:id])
     if @equipment.photo.attached? 
       render json: @equipment.as_json(only: %i[brand_name]).merge(photo_path: url_for(@equipment.avatar)), status: :ok
     else
@@ -24,7 +25,7 @@ class Api::V1::EquipmentsController < ApplicationController
   end
 
   def create
-    @equipment = Equipments.new(equipment_params)
+    @equipment = Equipment.new(equipment_params)
     if @equipment.save
       render json: @equipment, status: :created
     else
@@ -33,10 +34,12 @@ class Api::V1::EquipmentsController < ApplicationController
   end
 
   def destory
-    if @equipment.destory
-      render json: { data: 'Equipment deleted', status: 'success' }, status: :ok 
+    @equipment = Equipment.find(params[:id])
+
+    if @equipment.destory!
+      render json: { message: 'Equipment deleted', status: 'success' }, status: :ok
     else
-      render json: { data: 'Something went wrong', status: 'failed' }
+      render json: { message: 'Something went wrong', status: 'failed' }
     end
   end
 
