@@ -23,11 +23,11 @@ class Equipment < ApplicationRecord
   scope :newest, -> { order(created_at: :asc) }
   # scope :oldest, -> { order(created_at: :desc) }
   def update_service
-    if service_date.blank?
-      self.service_date = (Date.parse(date_acquired) + SERVICE_DAYS).strftime
-    else
-      self.service_date = (Date.parse(service_date) + SERVICE_DAYS).strftime
-    end
+    self.service_date = if service_date.blank?
+                          (Date.parse(date_acquired) + SERVICE_DAYS).strftime
+                        else
+                          (Date.parse(service_date) + SERVICE_DAYS).strftime
+                        end
   end
 
   # def update_service_date
