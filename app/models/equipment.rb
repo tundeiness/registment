@@ -14,7 +14,7 @@ class Equipment < ApplicationRecord
   end
   validates :brand_name, :serial_no, :condition, :date_acquired, :supplier, :model_number, presence: true, length: { minimum: 3 }
   validates :description, presence: true, length: { in: 10..200 }
-  validates :service_date, presence: true
+  # validates :service_date
   validates :loan_status, presence: true
 
   has_many :bookings
@@ -24,11 +24,12 @@ class Equipment < ApplicationRecord
   # scope :oldest, -> { order(created_at: :desc) }
   def update_service
     self.service_date = if service_date.blank?
-                          (Date.parse(date_acquired) + SERVICE_DAYS).strftime
+                          (date_acquired).to_date + SERVICE_DAYS
                         else
-                          (Date.parse(service_date) + SERVICE_DAYS).strftime
+                          (service_date).to_date + SERVICE_DAYS
                         end
   end
+
 
   # def update_service_date
   #   ActiveRecord::Base.transaction do
