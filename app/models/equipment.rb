@@ -3,7 +3,8 @@ class Equipment < ApplicationRecord
   # before_save :update_service
   before_create :update_service
 
-  SERVICE_DAYS = Date.today.advance(days: 30)
+  # SERVICE_DAYS = Date.today.advance(days: 30)
+  SERVICE_DAYS = 30.days
   # after_commit :update_service, :update_service_date
 
   # belongs_to :user
@@ -22,10 +23,10 @@ class Equipment < ApplicationRecord
   scope :newest, -> { order(created_at: :asc) }
   # scope :oldest, -> { order(created_at: :desc) }
   def update_service
-    if service_date.nil?
-      self.service_date = date_acquired + SERVICE_DAYS
+    if service_date.blank?
+      self.service_date = (Date.parse(date_acquired) + SERVICE_DAYS).strftime
     else
-      self.service_date += SERVICE_DAYS
+      self.service_date = (Date.parse(service_date) + SERVICE_DAYS).strftime
     end
   end
 
