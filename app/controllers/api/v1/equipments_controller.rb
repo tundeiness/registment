@@ -25,11 +25,13 @@ class Api::V1::EquipmentsController < ApplicationController
   end
 
   def create
+    # @user = current_user
     @equipment = Equipment.new(equipment_params)
     if @equipment.save
       render json: @equipment, status: :created
     else
       render json: { errors: @equipment.errors.full_messages }, status: :unprocessable_entity
+      # render json: { errors: post.errors }, status: 400
     end
   end
 
@@ -44,6 +46,13 @@ class Api::V1::EquipmentsController < ApplicationController
   end
 
   private
+
+  # def respond_to_equipment()
+  #   if @equipment.valid?
+  #     equipment_serializer = EquipmentSerializer.new(equipment: @equipment, user: @user.current_user)
+  #     render json equipment_serializer.
+  #   end
+  # end
 
   def set_equipment
     # @equipment = cureent_user.equipment.find(params[:id])

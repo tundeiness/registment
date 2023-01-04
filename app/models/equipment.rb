@@ -1,7 +1,7 @@
 class Equipment < ApplicationRecord
   # around_save :update_service, :update_service_date
-  # before_save :update_service
-  before_create :update_service
+  before_save :update_service
+  # before_create :update_service
 
   # SERVICE_DAYS = Date.today.advance(days: 30)
   SERVICE_DAYS = 30.days
@@ -17,6 +17,8 @@ class Equipment < ApplicationRecord
   # validates :service_date
   validates :loan_status, presence: true
 
+  validates :photo, { presence: true }
+
   has_many :bookings
   has_many :users, through: :bookings
 
@@ -29,6 +31,10 @@ class Equipment < ApplicationRecord
                           (service_date).to_date + SERVICE_DAYS
                         end
   end
+
+  # def photo_url
+  #   url_for(photo)
+  # end
 
 
   # def update_service_date
