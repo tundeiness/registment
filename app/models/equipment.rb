@@ -8,7 +8,7 @@ class Equipment < ApplicationRecord
   # after_commit :update_service, :update_service_date
 
   # belongs_to :user
-  has_one_attached :photo
+  has_one_attached :featured_image
   # has_one_attached :photo do |photo|
   #   photo.variant :thumbnail, resize_to_limit: [100, 100]
   #   photo.variant :medium, resize_to_limit: [400, 400]

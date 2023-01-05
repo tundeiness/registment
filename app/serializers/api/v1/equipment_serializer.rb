@@ -1,11 +1,11 @@
 class EquipmentSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
-  attributes :id, :photo
+  attributes :id, :brand_name, :serial_no, :condition, :date_acquired, :model_number, :description, :service_date, :supplier, :featured_image
 
   def featured_image
-    if object.photo.attached?
+    if object.featured_image.attached?
       {
-        url: rails_blob_url(object.photo)
+        url: rails_blob_url(object.featured_image)
       }
     end
   end

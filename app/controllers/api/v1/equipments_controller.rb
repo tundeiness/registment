@@ -4,20 +4,21 @@ class Api::V1::EquipmentsController < ApplicationController
   # before_action :set_company, only: [:show, :update, :destroy]
 
   def index
-    @equipment ||= Equipment.all
-    render json: @equipments.map { |item|
-      if item.photo.attached?
-        item.as_json(only: :brand_name).merge(photo_path: url_for(item.photo))
-      else
-        item.as_json only: :brand_name
-      end
-    }
+    @equipment = Equipment.all
+    render(json: @equipment)
+    # render json: @equipments.map { |item|
+    #   if item.photo.attached?
+    #     item.as_json(only: :brand_name).merge(photo_path: url_for(item.photo))
+    #   else
+    #     item.as_json only: :brand_name
+    #   end
+    # }
   end
 
   def show
     @equipment = Equipment.find(params[:id])
-    if @equipment.photo.attached? 
-      render json: @equipment.as_json(only: %i[brand_name]).merge(photo_path: url_for(@equipment.avatar)), status: :ok
+    if @equipment.featured_image.attached? 
+      render json: @equipment.as_json(only: %i[brand_name]).merge(featured_image_path: url_for(@equipment.avatar)), status: :ok
     else
       # render json: @equipments.as_json only: :brand_name # rubocop:disable Lint/Syntax
       render json: @equipment, status: :ok
@@ -62,6 +63,6 @@ class Api::V1::EquipmentsController < ApplicationController
   end
 
   def equipment_params
-    params.require(:equipments).permit(:brand_name, :photo, :serial_no, :condition, :date_acquired, :supplied_by, :model_number, :description, :service_date, :supplier)
+    params.require(:equipments).permit(:brand_name, :featured_image, :serial_no, :condition, :date_acquired, :model_number, :description, :service_date, :supplier)
   end
 end
