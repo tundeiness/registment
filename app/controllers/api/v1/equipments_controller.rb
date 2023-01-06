@@ -28,11 +28,20 @@ class Api::V1::EquipmentsController < ApplicationController
   def create
     # @user = current_user
     @equipment = Equipment.new(equipment_params)
+    # @equipment = current_user.equipment.new(equipment_params)
     if @equipment.save
       render json: @equipment, status: :created
     else
-      render json: { errors: @equipment.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: @equipment.errors.full_messages, status: 'failed' }, status: :unprocessable_entity
       # render json: { errors: post.errors }, status: 400
+    end
+  end
+
+  def update
+    if @equipment.update(equipment_params)
+      render json: @equipment, status: :ok
+    else
+      render json: { data: @equipment.errors.full_messages, status: 'failed' }, status: :unprocessable_entity
     end
   end
 
@@ -45,6 +54,7 @@ class Api::V1::EquipmentsController < ApplicationController
       render json: { message: 'Something went wrong', status: 'failed' }
     end
   end
+
 
   private
 
@@ -63,6 +73,6 @@ class Api::V1::EquipmentsController < ApplicationController
   end
 
   def equipment_params
-    params.require(:equipments).permit(:brand_name, :featured_image, :serial_no, :condition, :date_acquired, :model_number, :description, :service_date, :supplier)
+    params.require(:equipment).permit(:brand_name, :featured_image, :serial_no, :condition, :date_acquired, :model_number, :description, :service_date, :supplier)
   end
 end
