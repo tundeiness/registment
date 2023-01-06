@@ -2,13 +2,7 @@ class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :equipment
 
-  validates :status, presence: true
-  validates :booking_date, presence: true
-  validates :description, presence: true
-  validates :pickup_date, presence: true
-  validates :return_date, presence: true
-  validates :booking_price, presence: true
-
+  validates :status, :booking_date, :description, :pickup_date, :return_date, :booking_price, presence: true
 
   enum status: %i[available reserved checkoedOut returned]
   after_initialize :set_status, if: :new_record
