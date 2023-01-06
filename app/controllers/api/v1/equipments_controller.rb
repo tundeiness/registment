@@ -4,8 +4,8 @@ class Api::V1::EquipmentsController < ApplicationController
   # before_action :set_company, only: [:show, :update, :destroy]
 
   def index
-    @equipment = Equipment.all
-    render(json: @equipment)
+    @equipments = Equipment.all
+    render(json: @equipments)
     # render json: @equipments.map { |item|
     #   if item.photo.attached?
     #     item.as_json(only: :brand_name).merge(photo_path: url_for(item.photo))
