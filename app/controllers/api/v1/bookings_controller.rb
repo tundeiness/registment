@@ -40,10 +40,7 @@ class Api::V1::BookingsController < ApplicationController
   private
 
   def set_booking
-    # @booking = current_user.booking.find(params[:id])
     @booking = Booking.find(params[:id])
-  # rescue ActiveRecord::RecordNotFound => e
-  #   render json: e.message, status: :unauthorized
   end
 
   def booking_params
