@@ -19,6 +19,24 @@ class Api::V1::BookingsController < ApplicationController
     end
   end
 
+  def update
+    if @booking.update(booking_params)
+      render json: @booking, status: :ok
+    else
+      render json: { data: @booking.errors.full_messages, status: 'failed' }, status: :unprocessable_entity
+    end
+  end
+
+  def destory
+    @booking = Booking.find(params[:id])
+
+    if @booking.destory!
+      render json: { message: 'Booking deleted', status: 'success' }, status: :ok
+    else
+      render json: { message: 'Something went wrong', status: 'failed' }
+    end
+  end
+
   private
 
   def set_booking
