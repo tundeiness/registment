@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       #  user resources
       # rairesources :users
-      # resources :bookings
+      resources :bookings
       resources :equipments
     end
   end

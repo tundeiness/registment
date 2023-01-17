@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :equipment, through: :bookings
 
   # has_many :equipments
+  # accepts_nested_attributes_for :bookings, allow_destroy: true
 
   def jwt_payload
     super

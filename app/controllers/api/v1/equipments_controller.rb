@@ -67,9 +67,9 @@ class Api::V1::EquipmentsController < ApplicationController
 
   def set_equipment
     # @equipment = cureent_user.equipment.find(params[:id])
-    @equipment = Equipments.find(params[:id])
-  rescue ActiveRecord::RecordNotFound => error
-    render json: error.message, status: :unauthorized
+    @equipment = Equipment.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => e
+    render json: e.message, status: :unauthorized
   end
 
   def equipment_params
