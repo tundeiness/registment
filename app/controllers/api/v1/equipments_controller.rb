@@ -73,6 +73,6 @@ class Api::V1::EquipmentsController < ApplicationController
   end
 
   def equipment_params
-    params.require(:equipment).permit(:brand_name, :featured_image, :serial_no, :condition, :date_acquired, :model_number, :description, :service_date, :supplier)
+    params.require(:equipment).permit(:brand_name, :featured_image, :serial_no, :condition, :date_acquired, :model_number, :description, :service_date, :supplier, :loan_status)
   end
 end

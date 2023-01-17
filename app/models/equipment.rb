@@ -18,7 +18,7 @@ class Equipment < ApplicationRecord
   # validates :service_date
   validates :loan_status, presence: true
 
-  validates :photo, { presence: true }
+  # validates :featured_image, { presence: true }
 
   has_many :bookings
   has_many :users, through: :bookings
