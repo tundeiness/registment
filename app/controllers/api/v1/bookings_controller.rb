@@ -1,5 +1,5 @@
 class Api::V1::BookingsController < ApplicationController
-  before_action :set_booking, only: [:show]
+  before_action :set_booking, only: [:show, :update, :destroy]
 
   def index
     @bookings = Booking.all
