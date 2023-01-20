@@ -12,20 +12,20 @@ RSpec.configure do |config|
   #   end
   # end
 
-  config.use_transactional_fixtures = false
+  # config.use_transactional_fixtures = false
 
-  DatabaseCleaner.strategy = :truncation
-  config.around(:each) do |example|
-    DatabaseCleaner.cleaning do
-       example.run
-    end
-  end
+  # DatabaseCleaner.strategy = :truncation
+  # config.around(:each) do |example|
+  #   DatabaseCleaner.cleaning do
+  #      example.run
+  #   end
+  # end
 
-  config.before(:all) do
-    DatabaseCleaner.start
-  end
+  # config.before(:all) do
+  #   DatabaseCleaner.start
+  # end
 
-  config.after(:all) do
-    DatabaseCleaner.clean
-  end
+  # config.after(:all) do
+  #   DatabaseCleaner.clean
+  # end
 end

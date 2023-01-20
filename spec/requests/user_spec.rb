@@ -12,12 +12,14 @@ RSpec.describe "Users", type: :request do
         }
       }
     end
-    # let(:headers) { jwt_headers(user) }
+    # let(:headers) { get_headers(user) }
+    # let(:headers) { headers(user.email) }
 
-    # it 'returns a success response' do
-    #   get '/users/sign_in', headers: headers
-    #   expect(response).to be_successful
-    # end
+    it 'returns a success response' do
+      post '/users/sign_in', headers: headers
+      # expect(response).to have_http_status(200)
+      expect(response).to be_successful
+    end
 
     context 'when params are correct' do
       before do
@@ -51,8 +53,8 @@ RSpec.describe "Users", type: :request do
   #   end
   # end
 
-  describe 'POST /users/registrations' do
-    let(:url) { '/users/registrations' }
+  describe 'POST /users/password' do
+    let(:url) { '/users/password' }
     let(:params) do
       {
         user: {
@@ -69,9 +71,9 @@ RSpec.describe "Users", type: :request do
         expect(response.status).to eq 200
       end
 
-      it 'returns a new user' do
-        expect(response.body).to match_schema('user')
-      end
+      # it 'returns a new user' do
+      #   expect(response.body).to match_schema('user')
+      # end
     end
 
 

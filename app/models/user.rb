@@ -6,7 +6,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
 
-  attribute :role, :string, default: 'user'
+  # attribute :role, :string, default: 'user'
+
+  # VALID_EMAIL_REGEX = /^(|(([A-Za-z0-9]+_+)|([A-Za-z0-9]+\-+)|([A-Za-z0-9]+\.+)|([A-Za-z0-9]+\++))*[A-Za-z0-9]+@((\w+\-+)|(\w+\.))*\w{1,63}\.[a-zA-Z]{2,6})$/i
 
   ROLES = %w{super_admin admin normal}.freeze
 
@@ -14,6 +16,13 @@ class User < ApplicationRecord
   has_many :equipment, through: :bookings
 
   # has_many :equipments
+
+  validates :first_name, :last_name, presence: true, length: { minimum: 3 }
+  validates :phone, presence: true, length: { minimum: 7 }
+  validates :password, presence: true, length: { minimum: 6 }
+  validates :address, presence: true, length: { in: 10..200 }
+  validates :email, presence: true, uniqueness: true
+  # validates :email, presence: true, uniqueness: { case_sensetive: false }, format: { with: VALID_EMAIL_REGEX, multiline: true }
 
   def jwt_payload
     super
