@@ -17,9 +17,11 @@ gem 'puma', '~> 5.0'
 gem 'devise', '~> 4.8', '>= 4.8.1'
 gem 'devise-jwt'
 gem 'cancancan'
+gem 'jsonapi-serializer'
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 gem 'activestorage'
+# gem 'warden-jwt_auth', '~> 0.6.0'
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
