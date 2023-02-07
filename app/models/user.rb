@@ -12,6 +12,8 @@ class User < ApplicationRecord
 
   ROLES = %w{super_admin admin normal}.freeze
 
+  attribute :role, :string, default: 'normal'
+
   has_many :bookings
   has_many :equipment, through: :bookings
 
