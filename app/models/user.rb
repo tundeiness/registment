@@ -24,13 +24,14 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   # validates :email, presence: true, uniqueness: { case_sensetive: false }, format: { with: VALID_EMAIL_REGEX, multiline: true }
 
-  def jwt_payload
-    super
-  end
 
   ROLES.each do |name|
     define_method "#{name}?" do
       role == name
     end
+  end
+
+  def jwt_payload
+    super
   end
 end

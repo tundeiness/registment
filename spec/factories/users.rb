@@ -6,5 +6,6 @@ FactoryBot.define do
     phone { Faker::PhoneNumber.phone_number }
     address { Faker::Address.full_address }
     password { Faker::Internet.password }
+    password_confirmation { password }
   end
 end

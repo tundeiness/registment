@@ -13,8 +13,8 @@ class Ability
       # can :read, Equipment, user_id: user_id
       # can %i[read create], Booking
       # can %i[read create], Equipment
-      can %i[read create update], Booking
-      can %i[read create], Equipment
+      can %i[read create update], Booking, user_id: user.id
+      can %i[read create], Equipment, user_id: user.id
     else
       can :read, Equipment
       cannot :manage, Booking
