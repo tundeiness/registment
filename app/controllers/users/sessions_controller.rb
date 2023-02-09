@@ -3,35 +3,30 @@ class Users::SessionsController < Devise::SessionsController
 
   private
 
-  def respond_with(resource, _options = {})
-    # render json: {
-    #   status: { code: 200, message: 'Sign in successful', data: current_user }
-    # }, status: :ok
-
-    # render json: {
-    #   status: { code: 200, message: 'Sign in successful', data: current_user }
-    # }, status: :ok
-    # render json: resource
-    if resource.persisted?
-      access_token = encode_token(id: resource.id)
-      render json: { status: { code: 200, message: 'Signed in successfully' }, data: resource, access_token: access_token }
-    else
-      render json: { status: { code: 500, message: 'User could not be signed in' }, errors: resource.errors.full_mesages }
-    end
+  def respond_with(resource, options = {})
+    render json: {
+      status: { code: 200, message: 'Sign in successful', data: resource }
+    }, status: :ok
   end
 
   def respond_to_on_destroy
-    puts request.headers['Authorization'].split(' ')[1]
-    jwt_payload = JWT.decode(request.headers['Authorization'].split(' ')[1], Rails.application.credentials.fetch(:secret_key_base)).first
+    # puts request.headers['Authorization'].split(' ')[1]
+    authorization = request.headers['Authorization'].split(' ')[1]
+    p request.headers["Authorization"]
 
-    puts jwt_payload
+    jwt_payload = JWT.decode(request.headers['Authorization'].split(' ')[1], Rails.application.credentials.secret_key_base).first
     current_user = User.find(jwt_payload['sub'])
 
-
     if current_user
-      render json: { status: { code: 200, message: 'Signed out successfully'}, data: current_user }
+      render json: {
+        status: 200,
+        message: 'Signed out successfully'
+      }, status: :ok
     else
-      render json: { status: { code: 401, message: 'User could not be signed out' } }
+      render json: {
+        status: 401,
+        message: 'User has no active session'
+      }, status: :unauthorized
     end
     # head :no_content
     # authorization_header = request.headers['Authorization']

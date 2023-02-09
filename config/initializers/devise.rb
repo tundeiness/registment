@@ -318,7 +318,7 @@ Devise.setup do |config|
   # end
 
   config.jwt do |jwt|
-    jwt.secret = Rails.application.credentials.fetch(:secret_key_base)
+    jwt.secret = Rails.application.credentials.secret_key_base
     jwt.dispatch_requests = [
       ['POST', %r{^/users/sign_in$}]
     ]
@@ -326,5 +326,11 @@ Devise.setup do |config|
       ['DELETE', %r{^/users/sign_out$}]
     ]
     jwt.expiration_time = 120.minutes.to_i
+
+    # jwt.request_formats = {
+    #   user: [nil],
+    #   admin: [nil, :xml],
+    #   super_admin: [nil, :xml]
+    # }
   end
 end

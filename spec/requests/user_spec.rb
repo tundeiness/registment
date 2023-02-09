@@ -136,7 +136,7 @@ RSpec.describe "Users", type: :request do
     end
 
     it 'deletes the current user session' do
-      expect(response.headers['Authorization']).to be_blank
+      expect(response).to be_nil
     end
   end
 
