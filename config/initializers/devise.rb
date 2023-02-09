@@ -326,11 +326,5 @@ Devise.setup do |config|
       ['DELETE', %r{^/users/sign_out$}]
     ]
     jwt.expiration_time = 120.minutes.to_i
-
-    # jwt.request_formats = {
-    #   user: [nil],
-    #   admin: [nil, :xml],
-    #   super_admin: [nil, :xml]
-    # }
   end
 end

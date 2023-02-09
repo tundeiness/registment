@@ -1,26 +1,5 @@
 class ApplicationController < ActionController::API
   before_action :configure_permitted_parameters, if: :devise_controller?
-  # respond_to :json
-  # include ActionController::MimeResponds
-
-  def encode_token(payload)
-    JWT.encode(payload, 'my_s3cr3t')
-  end
-
-  def headers
-    request.headers['Authorization']
-  end
-
-  def decode_token
-    if headers
-      access_token = headers.split(' ')[1]
-      begin
-        JWT.decode(access_token, 'my_s3cr3t', true, algorithm: 'HS256')
-      rescue JWT::DecodeError
-        nil
-      end
-    end
-  end
 
   protected
 
