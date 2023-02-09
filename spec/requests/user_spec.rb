@@ -92,16 +92,16 @@ RSpec.describe "Users", type: :request do
 
   describe 'DELETE /users/sign_out' do
 
-    let(:user) { create(:user) }
-    let(:url) { '/users/sign_in' }
-    let(:params) do
-      {
-        user: {
-          email: user.email,
-          password: user.password
-        }
-      }
-    end
+    # let(:user) { create(:user) }
+    # let(:url) { '/users/sign_in' }
+    # let(:params) do
+    #   {
+    #     user: {
+    #       email: user.email,
+    #       password: user.password
+    #     }
+    #   }
+    # end
     # let(:headers) { { 'Accept' => 'application/json', Authorization: "Bearer #{token}" } }
 
     # let(:header) { { alg: 'HS256', typ: 'JWT' } }
@@ -117,20 +117,21 @@ RSpec.describe "Users", type: :request do
     #   delete '/logout', headers: headers
     # end
 
-    let(:headers) { { 'Authorization' => "Bearer #{JWT.encode(user.email, Rails.application.secrets.secret_key_base)}" } }
+    # let(:headers) { { 'Authorization' => "Bearer #{JWT.encode(user.email, Rails.application.secrets.secret_key_base)}" } }
     # let(:headers) { { 'Authorization' => "Bearer #{Devise::JWT.encode_token(user.id, Rails.application.credentials.secret_key_base)}" } }
 
     # it "returns status code 204" do
     #   # delete "/logout", headers: headers
     #   expect(response).to have_http_status(204)
     # end
-    before { post url, params: params }
+    # before { post url, params: params }
 
-    before { delete '/users/sign_out', headers: headers }
+    # before { delete '/users/sign_out' }
+    let(:url) { '/users/sign_out' }
 
     it 'returns status code 204' do
       # headers = { Authorization: "Bearer #{jwt_token}" }
-
+      delete url
       expect(response).to have_http_status(204)
     end
 
