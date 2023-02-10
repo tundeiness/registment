@@ -2,10 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Equipment, type: :model do
   describe 'validations' do
-    # it 'requires brand name' do
-    #   equipment = Equipment.new(brand_name: '')
-    #   expect(equipment.valid?).to be_falsy
-    # end
     subject { build(:equipment) }
 
     it { should validate_presence_of(:brand_name) }
@@ -17,38 +13,6 @@ RSpec.describe Equipment, type: :model do
     it { should validate_presence_of(:date_acquired) }
     it { should validate_presence_of(:loan_status) }
     it { should validate_presence_of(:service_date) }
-
-    # it 'requires condition' do
-    #   equipment = Equipment.new(condition: '')
-    #   expect(equipment.valid?).to be_falsy
-    # end
-
-    # it 'requires model number' do
-    #   equipment = Equipment.new(model_number: '')
-    #   expect(equipment.valid?).to be_falsy
-    # end
-
-    # it 'requires description' do
-    #   equipment = Equipment.new(description: '')
-    #   expect(equipment.valid?).to be_falsy
-    # end
-
-    # it 'requires serial number' do
-    #   equipment = Equipment.new(serial_no: '')
-    #   expect(equipment.valid?).to be_falsy
-    # end
-
-    # it 'requires supplier name' do
-    #   equipment = Equipment.new(supplier: '')
-    #   expect(equipment.valid?).to be_falsy
-    # end
-
-    # it 'requires date of acquisition' do
-    #   equipment = Equipment.new(date_acquired: '')
-    #   expect(equipment.valid?).to be_falsy
-    # end
-
-    # it { should validate_presence_of(:request) }
   end
 
   describe '.newest' do
