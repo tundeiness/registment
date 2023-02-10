@@ -27,10 +27,10 @@ class Api::V1::BookingsController < ApplicationController
     end
   end
 
-  def destory
+  def destroy
     @booking = Booking.find(params[:id])
 
-    if @booking.destory!
+    if @booking.destroy!
       render json: { message: 'Booking deleted', status: 'success' }, status: :ok
     else
       render json: { message: 'Something went wrong', status: 'failed' }
