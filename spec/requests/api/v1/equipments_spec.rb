@@ -95,8 +95,8 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
         expect { equipment.reload }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
-      it 'returns a 204 status' do
-        expect(response).to have_http_status(204)
+      it 'returns a 200 status' do
+        expect(response).to have_http_status(200)
       end
     end
 end

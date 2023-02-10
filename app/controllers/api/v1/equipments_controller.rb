@@ -36,7 +36,7 @@ class Api::V1::EquipmentsController < ApplicationController
   def destroy
     @equipment = Equipment.find(params[:id])
 
-    if @equipment.destory!
+    if @equipment.destroy!
       render json: { message: 'Equipment deleted', status: 'success' }, status: :ok
     else
       render json: { message: 'Something went wrong', status: 'failed' }
