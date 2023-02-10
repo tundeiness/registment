@@ -51,7 +51,7 @@ RSpec.describe 'Users', type: :request do
         expect { post url, params: { user: valid_attributes } }.to change(User, :count).by(1)
       end
 
-      it 'returns a 201 status code' do
+      it 'returns a 200 status code' do
         post url, params: { user: valid_attributes }
         expect(response).to have_http_status(200)
       end
