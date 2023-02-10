@@ -19,27 +19,14 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
     end
 
     let(:user) { create(:user, role: 'super_admin') }
-    # let(:user) { create(:user, :super_admin) }
-    # let(:headers) { { Authorization: "Bearer #{user.token}" } }
 
-    before do
-      post '/users/sign_in', params: params
-      # user.reload
-      # post '/users', params: { user: { email: 'test@example.com', password: 'password', role: 'super_admin' } }
-    end
-
-
-    # before do
-    #   FactoryBot.create_list(:equipment, 10)
-    #   get '/api/v1/equipments'
-    # end
 
     context 'with a super_admin' do
-      # before do
-      #   sign_in super_admin
-      # end
-      # let(:user) { create(:user, :super_admin) }
-      # before { post user }
+      before do
+        post '/users/sign_in', params: params
+        # user.reload
+        # post '/users', params: { user: { email: 'test@example.com', password: 'password', role: 'super_admin' } }
+      end
 
       it 'creates a new Equipment' do
         expect { post '/api/v1/equipments', params: { equipment: valid_attributes } }.to change(Equipment, :count).by(1)
@@ -52,13 +39,44 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
       # end
     end
 
-    # it 'returns all equipment' do
-    #   post url, params: { user: valid_attributes }
-    #   expect(json.size).to eq(10)
+      # it 'returns all equipment' do
+      #   post url, params: { user: valid_attributes }
+      #   expect(json.size).to eq(10)
+      # end
+
+      # it 'returns status code 200' do
+      #   expect(response).to have_http_status(:success)
+      # end
     # end
 
-    # it 'returns status code 200' do
-    #   expect(response).to have_http_status(:success)
-    # end
-  # end
+    context 'without valid params' do
+      before do
+        post '/users/sign_in', params: params
+      end
+
+      let(:invalid_attributes) { { name: nil, category: nil } }
+
+      it 'returns status code 422' do
+        post '/api/v1/equipments', params: { equipment: invalid_attributes }
+        expect(response).to have_http_status(422)
+      end
+    end
+
+    describe 'GET /api/v1/equipments' do
+      let(:super_admin) { create(:user, :super_admin) }
+      let!(:equipment) { create_list(:equipment, 3) }
+
+
+      before do
+        post '/users/sign_in', params: { user: { email: super_admin.email, password: super_admin.password } }
+      end
+
+      it 'returns all equipment' do
+        get '/api/v1/equipments'
+
+        expect(response).to have_http_status(200)
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response.count).to eq(3)
+      end
+    end
 end
