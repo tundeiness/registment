@@ -33,7 +33,7 @@ class Api::V1::EquipmentsController < ApplicationController
     end
   end
 
-  def destory
+  def destroy
     @equipment = Equipment.find(params[:id])
 
     if @equipment.destory!

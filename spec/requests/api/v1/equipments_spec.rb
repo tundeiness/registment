@@ -79,4 +79,24 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
         expect(parsed_response.count).to eq(3)
       end
     end
+
+    describe 'DELETE /api/v1/equipments/:id' do
+      let(:super_admin) { create(:user, role: 'super_admin') }
+      let!(:equipment) { create(:equipment) }
+      let(:valid_attributes) { { id: equipment.id } }
+
+
+      before do
+        post '/users/sign_in', params: { user: { email: super_admin.email, password: super_admin.password } }
+        delete "/api/v1/equipments/#{equipment.id}", headers: { 'Authorization' => response.header['Authorization'] }
+      end
+
+      it 'destroys the requested equipment' do
+        expect { equipment.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
+      it 'returns a 204 status' do
+        expect(response).to have_http_status(204)
+      end
+    end
 end
