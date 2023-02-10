@@ -99,4 +99,26 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
         expect(response).to have_http_status(200)
       end
     end
+
+    # SUPER ADMIN UPDATES AN EQUIPMENT
+    describe 'PUT /api/v1/equipments/:id' do
+      let!(:equipment) { create(:equipment) }
+      let(:valid_attributes) { { brand_name: 'Updated Name' } }
+      let(:super_admin) { create(:user, role: 'super_admin') }
+
+      context 'with super_admin user' do
+        before do
+          post '/users/sign_in', params: { user: { email: super_admin.email, password: super_admin.password } }
+          put "/api/v1/equipments/#{equipment.id}", params: { equipment: valid_attributes }
+        end
+
+        it 'updates the requested equipment' do
+          expect(Equipment.find(equipment.id).brand_name).to eq('Updated Name')
+        end
+
+        it 'returns a success response' do
+          expect(response).to have_http_status(:success)
+        end
+      end
+    end
 end
