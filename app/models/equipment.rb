@@ -7,7 +7,7 @@ class Equipment < ApplicationRecord
 
   validates :brand_name, :serial_no, :condition, :date_acquired, :supplier, :model_number, presence: true, length: { minimum: 3 }
   validates :description, presence: true, length: { in: 10..200 }
-  # validates :service_date
+  validates :service_date, presence: true
   validates :loan_status, presence: true
 
   # validates :featured_image, { presence: true }
