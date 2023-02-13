@@ -2,13 +2,13 @@ FactoryBot.define do
   factory :equipment do
     brand_name { Faker::Company.name }
     serial_no { Faker::Alphanumeric.alphanumeric(number: 15) }
-    condition { 'intact' }
+    condition { %w[intact broken].sample }
 
     trait :broken do
       condition { :broken }
     end
 
-    loan_status { 'available' }
+    loan_status { %w[available due_in overdue repairs].sample }
 
     trait :due_in do
       loan_status { :due_in }
