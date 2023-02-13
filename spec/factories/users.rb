@@ -7,7 +7,7 @@ FactoryBot.define do
     address { Faker::Address.full_address }
     password { Faker::Internet.password }
     password_confirmation { password }
-    role { 'normal' }
+    role { %w[normal admin super_admin].sample }
 
     trait :admin do
       role { :admin }
