@@ -41,7 +41,7 @@ RSpec.describe 'Users', type: :request do
 
   describe 'POST /users' do
     let(:url) { '/users' }
-    let(:super_admin) { create(:user, first_name: 'admin staff', role: 'super_admin') }
+    let(:super_admin) { create(:user, :super_admin) }
     let(:valid_attributes) { attributes_for(:user) }
 
     before { post url }
