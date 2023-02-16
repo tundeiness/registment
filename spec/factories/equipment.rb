@@ -8,6 +8,10 @@ FactoryBot.define do
       condition { :broken }
     end
 
+    trait :intact do
+      condition { :intact }
+    end
+
     loan_status { %w[available due_in overdue repairs].sample }
 
     trait :due_in do
