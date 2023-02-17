@@ -1,5 +1,6 @@
 class Api::V1::BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :update, :destroy]
+  load_and_authorize_resource
 
   def index
     @bookings = Booking.all

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Api::V1::Bookings', type: :request do
   let(:url) { '/users/sign_in' }
   let(:user) { create(:user, :super_admin) }
-  let(:normal_user) { create(:user, :normal) }
+  # let(:normal) { create(:user, :normal) }
   let(:user_two) { create(:user, :admin) }
   let(:equipment) { create(:equipment) }
   let(:booking) { create(:booking) }
@@ -28,14 +28,14 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
     }
   end
 
-  let(:params_normal) do
-    {
-      user: {
-        email: normal_user.email,
-        password: normal_user.password
-      }
-    }
-  end
+  # let(:params_normal) do
+  #   {
+  #     user: {
+  #       email: normal_user.email,
+  #       password: normal_user.password
+  #     }
+  #   }
+  # end
 
 
     # describe "GET /index" do; end
@@ -62,6 +62,7 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
   end
 
   describe 'GET /api/v1/bookings' do
+    let(:normal) { create(:user, :normal) }
     let!(:booking) { create_list(:booking, 10) }
 
     context 'User with a super_admin role' do
@@ -72,22 +73,22 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
       it 'can get all Bookings record' do
         get '/api/v1/bookings'
 
-        expect(response).to have_http_status(204)
-        # parsed_response = JSON.parse(response.body)
-        puts response.status
-        # expect(parsed_response.count).to eq(10)
+        expect(response).to have_http_status(200)
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response.count).to eq(10)
       end
     end
 
-    # context 'User with a normal role' do
+    # context 'when User with a normal role' do
     #   before do
-    #     post '/users/sign_in', params: params_normal
+    #     post '/users/sign_in', params: { user: { email: normal.email, password: normal.password } }
     #   end
 
-    #   it 'cannot get all Bookings record' do
+    #   it 'returns unauthorized response' do
     #     get '/api/v1/bookings'
-
-    #     expect(response).to have_http_status(204)
+    #     expect(response).to have_http_status(:forbidden)
+    #     # check that the response body contains an error message
+    #     expect(response.body).to include('You are not authorized to access this page.')
     #   end
     # end
   end

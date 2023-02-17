@@ -17,7 +17,7 @@ class Ability
       can %i[read create], Equipment, user_id: user.id
     else
       can :read, Equipment
-      cannot :manage, Booking
+      cannot %i[read create update delete], Booking
     end
 
     # case user
