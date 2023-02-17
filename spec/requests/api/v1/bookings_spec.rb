@@ -29,24 +29,29 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
 
 
     # describe "GET /index" do; end
+  describe 'POST /api/v1/bookings' do
+    context 'User with a super_admin role' do
+      before do
+        post '/users/sign_in', params: params
+      end
 
-  context 'User with a super_admin role' do
-    before do
-      post '/users/sign_in', params: params
+      it 'creates a new Booking' do
+        expect { post '/api/v1/bookings', params: { bookings: valid_attributes } }.to change(Booking, :count).by(1)
+      end
     end
 
-    it 'creates a new Booking' do
-      expect { post '/api/v1/bookings', params: { bookings: valid_attributes } }.to change(Booking, :count).by(1)
+    context 'User with an admin role' do
+      before do
+        post '/users/sign_in', params: params_two
+      end
+
+      it 'creates a new Booking' do
+        expect { post '/api/v1/bookings', params: { bookings: valid_attributes_two } }.to change(Booking, :count).by(1)
+      end
     end
   end
 
-  context 'User with an admin role' do
-    before do
-      post '/users/sign_in', params: params_two
-    end
-
-    it 'creates a new Booking' do
-      expect { post '/api/v1/bookings', params: { bookings: valid_attributes_two } }.to change(Booking, :count).by(1)
-    end
+  describe 'GET /api/v1/bookings' do
+    # some code
   end
 end
