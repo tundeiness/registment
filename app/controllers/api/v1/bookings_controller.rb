@@ -3,6 +3,7 @@ class Api::V1::BookingsController < ApplicationController
 
   def index
     @bookings = Booking.all
+    render(json: @bookings)
     # @bookings = current_user.bookings
   end
 
