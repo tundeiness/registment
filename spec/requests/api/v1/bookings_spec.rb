@@ -92,4 +92,21 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
     #   end
     # end
   end
+
+  describe 'DELETE /api/v1/bookings/:id' do
+    let(:super_admin) { create(:user, :super_admin) }
+    let!(:booking) { create(:booking) }
+    let(:valid_attributes) { { id: booking.id } }
+
+
+    before do
+      post '/users/sign_in', params: { user: { email: super_admin.email, password: super_admin.password } }
+      delete "/api/v1/bookings/#{booking.id}", headers: { 'Authorization' => response.header['Authorization'] }
+    end
+
+    it 'deletes a booking successfully' do
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)['message']).to eq('Booking deleted')
+    end
+  end
 end
