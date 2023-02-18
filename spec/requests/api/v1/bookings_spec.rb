@@ -34,7 +34,7 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
       end
 
       it 'creates a new Booking' do
-        expect { post '/api/v1/bookings', params: { bookings: valid_attributes } }.to change(Booking, :count).by(1)
+        expect { post '/api/v1/bookings', params: { booking: valid_attributes } }.to change(Booking, :count).by(1)
       end
     end
 
@@ -44,7 +44,7 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
       end
 
       it 'creates a new Booking' do
-        expect { post '/api/v1/bookings', params: { bookings: valid_attributes_two } }.to change(Booking, :count).by(1)
+        expect { post '/api/v1/bookings', params: { booking: valid_attributes_two } }.to change(Booking, :count).by(1)
       end
     end
   end
