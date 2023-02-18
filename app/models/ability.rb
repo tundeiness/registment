@@ -4,15 +4,10 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    user ||= User.new(role: 'normal')
     if user.super_admin?
       can :manage, :all
     elsif user.admin?
-      # can :read, Booking
-      # can :create, Booking, user_id: user_id
-      # can :create, Equipment, user_id: user_id
-      # can :read, Equipment, user_id: user_id
-      # can %i[read create], Booking
-      # can %i[read create], Equipment
       can %i[read create update], Booking, user_id: user.id
       can %i[read create], Equipment, user_id: user.id
     else
