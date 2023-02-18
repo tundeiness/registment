@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'Api::V1::Bookings', type: :request do
   let(:url) { '/users/sign_in' }
   let(:user) { create(:user, :super_admin) }
-  # let(:normal) { create(:user, :normal) }
   let(:user_two) { create(:user, :admin) }
   let(:equipment) { create(:equipment) }
   let(:booking) { create(:booking) }
@@ -28,17 +27,6 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
     }
   end
 
-  # let(:params_normal) do
-  #   {
-  #     user: {
-  #       email: normal_user.email,
-  #       password: normal_user.password
-  #     }
-  #   }
-  # end
-
-
-    # describe "GET /index" do; end
   describe 'POST /api/v1/bookings' do
     context 'User with a super_admin role' do
       before do
@@ -94,58 +82,25 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
     end
   end
 
-  # describe 'PUT /api/v1/bookings/:id' do
-  #   let!(:booking) { create(:booking) }
-  #   let(:valid_attributes) { { status: 'returned' } }
-  #   let(:super_admin) { create(:user, :super_admin) }
+  describe 'PUT /api/v1/bookings/:id' do
+    let!(:booking) { create(:booking, :returned) }
 
-  #   context 'with super_admin user' do
-  #     before do
-  #       post '/users/sign_in', params: { user: { email: super_admin.email, password: super_admin.password } }
-  #       put "/api/v1/bookings/#{booking.id}", headers: { 'Authorization' => response.header['Authorization'] }
-  #     end
+    context 'with super_admin user' do
+      before do
+        post '/users/sign_in', params: params
+      end
 
-  #     it 'updates booking status' do
-  #       expect(Booking.find(booking.id).status).to eq('returned')
-  #     end
+      it 'updates booking status' do
+        expect(Booking.find(booking.id).status).to eq('returned')
+      end
 
-  #     it 'returns a success response' do
-  #       expect(response).to have_http_status(:success)
-  #     end
-  #   end
-  # end
+      it 'returns a success response' do
+        expect(response).to have_http_status(:success)
+      end
 
-  # describe "PUT /api/v1/bookings/:id" do
-  #   let!(:booking) { create(:booking) }
-  #   # let!(:super_admin) { create(:user, :super_admin) }
-  #   # let!(:auth_headers) { super_admin.create_new_auth_token }
-
-  #   context "with valid params" do
-  #     let(:booking_params) { { status: "returned" } }
-
-  #     before { put "/api/v1/bookings/#{booking.id}", params: params }
-
-  #     it "returns a successful response" do
-  #       expect(response).to be_successful
-  #     end
-
-  #     it "updates the booking" do
-  #       expect(booking.reload.status).to eq("returned")
-  #     end
-  #   end
-
-  #   context "with invalid params" do
-  #     let(:booking_params) { { status: nil } }
-
-  #     before { put "/api/v1/bookings/#{booking.id}", params: params }
-
-  #     it "returns an unprocessable entity response" do
-  #       expect(response).to have_http_status(:unprocessable_entity)
-  #     end
-
-  #     it "does not update the booking" do
-  #       expect(booking.reload.status).to_not be_nil
-  #     end
-  #   end
-  # end
+      it 'updates booking' do
+        expect(booking.reload.status).to eq('returned')
+      end
+    end
+  end
 end
