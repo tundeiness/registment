@@ -62,7 +62,6 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
   end
 
   describe 'GET /api/v1/bookings' do
-    let(:normal) { create(:user, :normal) }
     let!(:booking) { create_list(:booking, 10) }
 
     context 'User with a super_admin role' do
@@ -78,26 +77,11 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
         expect(parsed_response.count).to eq(10)
       end
     end
-
-    # context 'when User with a normal role' do
-    #   before do
-    #     post '/users/sign_in', params: { user: { email: normal.email, password: normal.password } }
-    #   end
-
-    #   it 'returns unauthorized response' do
-    #     get '/api/v1/bookings'
-    #     expect(response).to have_http_status(:forbidden)
-    #     # check that the response body contains an error message
-    #     expect(response.body).to include('You are not authorized to access this page.')
-    #   end
-    # end
   end
 
   describe 'DELETE /api/v1/bookings/:id' do
     let(:super_admin) { create(:user, :super_admin) }
     let!(:booking) { create(:booking) }
-    let(:valid_attributes) { { id: booking.id } }
-
 
     before do
       post '/users/sign_in', params: { user: { email: super_admin.email, password: super_admin.password } }
