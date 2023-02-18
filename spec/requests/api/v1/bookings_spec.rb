@@ -114,4 +114,38 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
   #     end
   #   end
   # end
+
+  # describe "PUT /api/v1/bookings/:id" do
+  #   let!(:booking) { create(:booking) }
+  #   # let!(:super_admin) { create(:user, :super_admin) }
+  #   # let!(:auth_headers) { super_admin.create_new_auth_token }
+
+  #   context "with valid params" do
+  #     let(:booking_params) { { status: "returned" } }
+
+  #     before { put "/api/v1/bookings/#{booking.id}", params: params }
+
+  #     it "returns a successful response" do
+  #       expect(response).to be_successful
+  #     end
+
+  #     it "updates the booking" do
+  #       expect(booking.reload.status).to eq("returned")
+  #     end
+  #   end
+
+  #   context "with invalid params" do
+  #     let(:booking_params) { { status: nil } }
+
+  #     before { put "/api/v1/bookings/#{booking.id}", params: params }
+
+  #     it "returns an unprocessable entity response" do
+  #       expect(response).to have_http_status(:unprocessable_entity)
+  #     end
+
+  #     it "does not update the booking" do
+  #       expect(booking.reload.status).to_not be_nil
+  #     end
+  #   end
+  # end
 end
