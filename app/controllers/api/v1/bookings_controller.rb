@@ -47,8 +47,4 @@ class Api::V1::BookingsController < ApplicationController
   def booking_params
     params.require(:bookings).permit(:status, :booking_date, :description, :pickup_date, :return_date, :booking_price, :user_id, :equipment_id)
   end
-
-  # def booking_params
-  #   params.require(:bookings).permit(:status, :booking_date, :description, :pickup_date, :return_date, :booking_price, :user_id, :equipment_id)
-  # end
 end
