@@ -1,11 +1,10 @@
 class Api::V1::BookingsController < ApplicationController
-  before_action :set_booking, only: [:show, :update, :destroy]
+  before_action :set_booking, only: [:show, :destroy]
   load_and_authorize_resource
 
   def index
     @bookings = Booking.all
     render(json: @bookings)
-    # @bookings = current_user.bookings
   end
 
   def show
@@ -48,4 +47,8 @@ class Api::V1::BookingsController < ApplicationController
   def booking_params
     params.require(:bookings).permit(:status, :booking_date, :description, :pickup_date, :return_date, :booking_price, :user_id, :equipment_id)
   end
+
+  # def booking_params
+  #   params.require(:bookings).permit(:status, :booking_date, :description, :pickup_date, :return_date, :booking_price, :user_id, :equipment_id)
+  # end
 end

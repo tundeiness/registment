@@ -93,4 +93,25 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
       expect(JSON.parse(response.body)['message']).to eq('Booking deleted')
     end
   end
+
+  # describe 'PUT /api/v1/bookings/:id' do
+  #   let!(:booking) { create(:booking) }
+  #   let(:valid_attributes) { { status: 'returned' } }
+  #   let(:super_admin) { create(:user, :super_admin) }
+
+  #   context 'with super_admin user' do
+  #     before do
+  #       post '/users/sign_in', params: { user: { email: super_admin.email, password: super_admin.password } }
+  #       put "/api/v1/bookings/#{booking.id}", headers: { 'Authorization' => response.header['Authorization'] }
+  #     end
+
+  #     it 'updates booking status' do
+  #       expect(Booking.find(booking.id).status).to eq('returned')
+  #     end
+
+  #     it 'returns a success response' do
+  #       expect(response).to have_http_status(:success)
+  #     end
+  #   end
+  # end
 end
