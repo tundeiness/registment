@@ -4,6 +4,10 @@ FactoryBot.define do
     equipment
     status { %w[available reserved returned checked_out].sample }
 
+    trait :available do
+      status { :available }
+    end
+
     trait :reserved do
       status { :reserved }
     end
