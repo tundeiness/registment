@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Bookings', type: :request do
-  # let(:url) { '/users/sign_in' }
   let(:user_two) { create(:user, :admin) }
 
   let(:params_two) do
