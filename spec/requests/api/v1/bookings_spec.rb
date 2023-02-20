@@ -1,22 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Bookings', type: :request do
-  let(:url) { '/users/sign_in' }
-  let(:user) { create(:user, :super_admin) }
+  # let(:url) { '/users/sign_in' }
   let(:user_two) { create(:user, :admin) }
-  let(:equipment) { create(:equipment) }
-  let(:booking) { create(:booking) }
-  let(:valid_attributes) { { user: user.id, eequipment: equipment.id, status: booking.status, booking_date: booking.booking_date, description: booking.description, pickup_date: booking.pickup_date, return_date: booking.return_date, booking_price: booking.booking_price } }
-
-  let(:valid_attributes_two) { { user_two: user.id, eequipment: equipment.id, status: booking.status, booking_date: booking.booking_date, description: booking.description, pickup_date: booking.pickup_date, return_date: booking.return_date, booking_price: booking.booking_price } }
-  let(:params) do
-    {
-      user: {
-        email: user.email,
-        password: user.password
-      }
-    }
-  end
 
   let(:params_two) do
     {
@@ -28,6 +14,32 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
   end
 
   describe 'POST /api/v1/bookings' do
+    let(:user) { create(:user, :super_admin) }
+    let(:params) do
+      {
+        user: {
+          email: user.email,
+          password: user.password
+        }
+      }
+    end
+
+    let(:params_two) do
+      {
+        user: {
+          email: user_two.email,
+          password: user_two.password
+        }
+      }
+    end
+
+    let(:booking) { create(:booking) }
+    let(:equipment) { create(:equipment) }
+    let(:valid_attributes) { { user: user.id, eequipment: equipment.id, status: booking.status, booking_date: booking.booking_date, description: booking.description, pickup_date: booking.pickup_date, return_date: booking.return_date, booking_price: booking.booking_price } }
+
+    let(:valid_attributes_two) { { user_two: user.id, eequipment: equipment.id, status: booking.status, booking_date: booking.booking_date, description: booking.description, pickup_date: booking.pickup_date, return_date: booking.return_date, booking_price: booking.booking_price } }
+
+
     context 'User with a super_admin role' do
       before do
         post '/users/sign_in', params: params
@@ -50,6 +62,15 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
   end
 
   describe 'GET /api/v1/bookings' do
+    let(:user) { create(:user, :super_admin) }
+    let(:params) do
+      {
+        user: {
+          email: user.email,
+          password: user.password
+        }
+      }
+    end
     let!(:booking) { create_list(:booking, 10) }
 
     context 'User with a super_admin role' do
@@ -82,12 +103,40 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
     end
   end
 
+
   describe 'PUT /api/v1/bookings/:id' do
+    let!(:user) { create(:user, :super_admin) }
     let!(:booking) { create(:booking, :returned) }
+    let(:equipment) { create(:equipment) }
+
+    let(:params) do
+      {
+        user: {
+          email: user.email,
+          password: user.password
+        }
+      }
+    end
+
+    let(:booking_params) do
+      {
+        booking: {
+          status: booking.status,
+          booking_date: booking.booking_date,
+          description: booking.description,
+          pickup_date: booking.pickup_date,
+          return_date: booking.return_date,
+          booking_price: booking.booking_price,
+          user_id: user.id,
+          equipment_id: equipment.id
+        }
+      }
+    end
 
     context 'with super_admin user' do
       before do
         post '/users/sign_in', params: params
+        put "/api/v1/bookings/#{booking.id}", params: booking_params, headers: { 'Authorization' => response.header['Authorization'] }
       end
 
       it 'updates booking status' do
@@ -100,6 +149,48 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
 
       it 'updates booking' do
         expect(booking.reload.status).to eq('returned')
+      end
+    end
+  end
+
+  describe 'PUT /api/v1/bookings/:id' do
+    let(:user) { create(:user, :normal) }
+    let!(:booking) { create(:booking, :returned) }
+    let(:equipment) { create(:equipment) }
+    let(:normal_params) do
+      {
+        user: {
+          email: user.email,
+          password: user.password
+        }
+      }
+    end
+
+    let(:params) do
+      {
+        booking: {
+          status: booking.status,
+          booking_date: booking.booking_date,
+          description: booking.description,
+          pickup_date: booking.pickup_date,
+          return_date: booking.return_date,
+          booking_price: booking.booking_price,
+          user_id: user.id,
+          equipment_id: equipment.id
+        }
+      }
+    end
+
+    context 'when user is unauthorized' do
+
+      before do
+        post '/users/sign_in', params: normal_params
+        put "/api/v1/bookings/#{booking.id}", params: params, headers: { 'Authorization' => response.header['Authorization'] }
+      end
+
+      it 'returns 403 Forbidden' do
+        # puts response
+        expect(response.body).to include('You are not authorized to access this page.')
       end
     end
   end
