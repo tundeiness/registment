@@ -105,7 +105,7 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
 
 
   describe 'PUT /api/v1/bookings/:id' do
-    let!(:user) { create(:user, :super_admin) }
+    let(:user) { create(:user, :super_admin) }
     let!(:booking) { create(:booking, :returned) }
     let(:equipment) { create(:equipment) }
 
@@ -181,16 +181,13 @@ RSpec.describe 'Api::V1::Bookings', type: :request do
       }
     end
 
-    context 'when user is unauthorized' do
-
+    context 'when user is not authorized' do
       before do
         post '/users/sign_in', params: normal_params
-        put "/api/v1/bookings/#{booking.id}", params: params, headers: { 'Authorization' => response.header['Authorization'] }
       end
 
       it 'returns 403 Forbidden' do
-        # puts response
-        expect(response.body).to include('You are not authorized to access this page.')
+        expect { put "/api/v1/bookings/#{booking.id}", params: params, headers: { 'Authorization' => response.header['Authorization'] } }.to raise_error(CanCan::AccessDenied, 'You are not authorized to access this page.')
       end
     end
   end
