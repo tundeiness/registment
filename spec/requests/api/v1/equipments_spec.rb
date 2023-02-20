@@ -101,4 +101,29 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
         end
       end
     end
+
+    describe 'PUT /api/v1/equipments/:id' do
+      let(:user) { create(:user, :normal) }
+      let(:equipment) { create(:equipment) }
+
+      let(:normal_params) do
+        {
+          user: {
+            email: user.email,
+            password: user.password
+          }
+        }
+      end
+
+      # NORMAL USER CANNOT UPDATE AN EQUIPMENT
+      context 'when user is not authorized' do
+        before do
+          post '/users/sign_in', params: normal_params
+        end
+
+        it 'returns 403 Forbidden' do
+          expect { put "/api/v1/equipments/#{equipment.id}" }.to raise_error(CanCan::AccessDenied, 'You are not authorized to access this page.')
+        end
+      end
+    end
 end
