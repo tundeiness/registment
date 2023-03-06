@@ -2,7 +2,7 @@
 
 > This project is the Server Side solution for an equipment Inventory app called REGISTMENT. The Client Side aspect is a work in progress and it can be found [here](https://github.com/tundeiness)
 
-> This project is focused on how to authenticate a Ruby-on-Rails API only app using `gem devise`, `gem devise-jtw` and `JWT Tokens`
+> This project also uses `gem devise`, `gem cancancan`, `gem devise-jtw` and `JWT Tokens` for Authentication and Authorization.
 
 ## 🛠 Built With
 
