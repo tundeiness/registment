@@ -19,9 +19,8 @@
 
 In order to run this project you need:
 
-- Nodejs installed on your computer
 - Visual studio code or your preferred code editor
-- Have a basic Knowledge i Ruby-on-Rails and APIs
+- Have a basic Knowledge of Ruby-on-Rails and APIs
 
 ### Setup
 
