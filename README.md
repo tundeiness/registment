@@ -1,4 +1,5 @@
-# REGISTMENT: A Rails API Authentication and Authorization CRUD
+# REGISTMENT: 
+## A Rails Authentication and Authorization CRUD API
 
 > This project is the Server Side solution for an equipment Inventory app called REGISTMENT. The Client Side aspect is a work in progress and it can be found [here](https://github.com/tundeiness)
 
@@ -100,7 +101,7 @@ Examples:
   Request : `POST`
   URL : `http://127.0.0.1:3001/users`
   Body :
-  ```rb
+  ```json
     {
         "user": {
         "first_name":"Kreemy",
@@ -117,11 +118,13 @@ Examples:
   By default, the role for a new user is `normal` but to be able to check how other endpoints work, you will
   need a `super_admin` or `admin` user.
   At  rails console you can change the role like below:
+
   ```rb
     u = User.first
-    u.role = 'super_admin'
+    u.update(role:'super_admin')
     u.save
   ```
+
   This will change the first users' role to super_admin, and with that you can perform other request
   as long as you are the `super_admin` or `admin users`. Note that only user with super_admin role can
   create other `normal` users and also change role of other users.
@@ -202,6 +205,58 @@ Examples:
 - Delete an equipment (super_admin & admin only)
   Request : `DELETE` 
   URL : `http://127.0.0.1:3001/api/v1/equipments/:id`
+
+
+
+  - List all bookings (super_admin & admin only)
+
+  Request : `GET`
+  URL : `http://127.0.0.1:3001/api/v1/bookings`
+
+
+- Create new booking (super_admin & admin only)
+
+  Request : `POST`
+  URL : `http://127.0.0.1:3001/api/v1/bookings/`
+  Body :
+  ```json
+    {
+      "booking":{
+          "user_id":2,
+          "equipment_id":3,
+          "booking_price":54000.00,
+          "description":"GNSS Equipment leased out by admin 2",
+          "status":"checkedOut",
+          "pickup_date":"28-Jan-2023",
+          "return_date":"5-Feb-2023",
+          "booking_date":"10-Jan-2023"
+      }
+    }
+    ```
+
+- Update a booking (super_admin & admin only)
+  Request : `PATCH` or `PUT`
+  URL : `http://127.0.0.1:3001/api/v1/bookings/:id`
+  Body :
+  ```json
+    {
+      "booking":{
+          "id": 1,
+          "status": "returned",
+          "booking_date": "2023-01-15",
+          "description": "A Seiko brand GNSS Equipment",
+          "pickup_date": "2023-01-31",
+          "return_date": "2023-02-02",
+          "booking_price": "34000.0",
+          "user_id": 1,
+          "equipment_id": 1
+      }
+    }
+    ```
+
+- Delete a booking (super_admin & admin only)
+  Request : `DELETE` 
+  URL : `http://127.0.0.1:3001/api/v1/bookings/:id`
 
 - Note that you need to sign in as either `super_admin` or `admin` to use these endpoints on postman effectively.
 
