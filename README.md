@@ -1,4 +1,4 @@
-# REGISTMENT: 
+# REGISTMENT 
 ## A Rails Authentication and Authorization CRUD API
 
 > This project is the Server Side solution for an equipment Inventory app called REGISTMENT. The Client Side aspect is a work in progress and it can be found [here](https://github.com/tundeiness)
