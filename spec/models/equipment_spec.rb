@@ -25,6 +25,24 @@ RSpec.describe Equipment, type: :model do
     it { expect(Equipment.newest).to include newest }
   end
 
+  describe '.with_booking_count' do
+    let(:equipment) { create(:equipment) }
+    let!(:booking) { create(:booking) }
+    let!(:booking2) { create(:booking) }
+    let!(:booking3) { create(:booking) }
+    let(:super_admin) { create(:user, role: 'super_admin') }
+
+    it 'returns equipments with booking counts' do
+      equipments = Equipment.with_booking_count
+      # p equipments[0].booking_count
+      expect(equipments.length).to eq(3)
+      expect(equipments[0].booking_count).to eq(1)
+      expect(equipments[1].booking_count).to eq(1)
+      expect(equipments[2].booking_count).to eq(1)
+      # expect(equipments[0].booking_count).to eq(2)
+    end
+  end
+
   context 'Association tests' do
     describe 'model associations' do
       it { should have_many(:bookings) }
