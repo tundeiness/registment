@@ -126,21 +126,25 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
     end
   end
 
-  # describe '.with_booking_count' do
-  #   let(:equipment) { create(:equipment) }
-  #   let!(:booking) { create(:booking) }
-  #   let!(:booking2) { create(:booking) }
-  #   let!(:booking3) { create(:booking) }
-  #   let(:super_admin) { create(:user, role: 'super_admin') }
+  describe 'GET /api/v1/equipments/booking_count' do
+    let(:super_admin) { create(:user, :super_admin) }
 
-  #   it 'returns equipments with booking counts' do
-  #     equipments = Equipment.with_booking_count
-  #     # p equipments[0].booking_count
-  #     expect(equipments.length).to eq(3)
-  #     expect(equipments[0].booking_count).to eq(1)
-  #     expect(equipments[1].booking_count).to eq(1)
-  #     expect(equipments[2].booking_count).to eq(1)
-  #     # expect(equipments[0].booking_count).to eq(2)
-  #   end
-  # end
+    let(:booking) { create(:booking) }
+    let(:equipment) { create(:equipment) }
+    let(:valid_attributes) { { user: user.id, eequipment: equipment.id, status: booking.status, booking_date: booking.booking_date, description: booking.description, pickup_date: booking.pickup_date, return_date: booking.return_date, booking_price: booking.booking_price } }
+
+    before do
+      post '/users/sign_in', params: { user: { email: super_admin.email, password: super_admin.password } }
+      post '/api/v1/bookings', params: { booking: valid_attributes }
+    end
+
+    it 'returns equipments with booking counts' do
+      get '/api/v1/equipments/booking_count'
+
+      p response.body
+      p equipment
+      expect(response).to have_http_status(:ok)
+      # expect(response.body).to have_json_size(3)
+    end
+  end
 end
