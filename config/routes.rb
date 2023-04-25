@@ -17,7 +17,11 @@ Rails.application.routes.draw do
       #  user resources
       # rairesources :users
       resources :bookings
-      resources :equipments
+      resources :equipments do
+        collection do
+          get 'booking_count'
+        end
+      end
     end
   end
 end

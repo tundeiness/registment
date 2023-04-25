@@ -4,7 +4,7 @@ class Api::V1::EquipmentsController < ApplicationController
 
   def index
     @equipments = Equipment.all
-    render(json: @equipments)
+    render(json: @equipments, include: :bookings)
   end
 
   def show
@@ -41,6 +41,11 @@ class Api::V1::EquipmentsController < ApplicationController
     else
       render json: { message: 'Something went wrong', status: 'failed' }
     end
+  end
+
+  def booking_count
+    @equipment = Equipment.with_booking_count
+    render json: @equipment
   end
 
 

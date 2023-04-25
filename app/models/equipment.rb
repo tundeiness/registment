@@ -17,6 +17,10 @@ class Equipment < ApplicationRecord
 
   scope :newest, -> { order(created_at: :asc) }
 
+  def self.with_booking_count
+    left_joins(:bookings).group('equipment_id').select('equipment.*, COUNT(booking.id) AS booking_count')
+  end
+
   private
 
   def update_service
