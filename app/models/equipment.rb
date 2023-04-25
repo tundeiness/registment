@@ -18,10 +18,13 @@ class Equipment < ApplicationRecord
   scope :newest, -> { order(created_at: :asc) }
 
   def self.with_booking_count
-    left_joins(:bookings)
+    # left_joins(:bookings)
+    #   .group('equipment.id')
+    #   .select('equipment.*, COUNT(bookings.id) AS booking_count')
+    #   .from('equipment')
+    select('equipment.*, COUNT(bookings.id) AS booking_count')
+      .joins(:bookings)
       .group('equipment.id')
-      .select('equipment.*, COUNT(bookings.id) AS booking_count')
-      .from('equipment')
   end
 
   private
