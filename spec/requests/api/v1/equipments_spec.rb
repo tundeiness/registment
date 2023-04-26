@@ -136,15 +136,14 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
     before do
       post '/users/sign_in', params: { user: { email: super_admin.email, password: super_admin.password } }
       post '/api/v1/bookings', params: { booking: valid_attributes }
+      get '/api/v1/equipments/booking_count'
     end
 
     it 'returns equipments with booking counts' do
-      get '/api/v1/equipments/booking_count'
 
-      p response.body
-      p equipment
+      # p response.body.json
+      # p equipment
       expect(response).to have_http_status(:ok)
-      # expect(response.body).to have_json_size(3)
     end
   end
 end

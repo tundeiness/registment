@@ -5,6 +5,7 @@ class Api::V1::EquipmentsController < ApplicationController
   def index
     @equipments = Equipment.all
     render(json: @equipments, include: :bookings)
+    # render(json: @equipments)
   end
 
   def show

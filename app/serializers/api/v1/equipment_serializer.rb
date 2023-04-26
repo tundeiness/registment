@@ -10,7 +10,7 @@ class EquipmentSerializer < ActiveModel::Serializer
     end
   end
 
-  def booking_count
-    object.booking_count
-  end
+  # def booking_count
+  #   object.booking_count
+  # end
 end

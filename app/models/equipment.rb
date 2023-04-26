@@ -24,6 +24,11 @@ class Equipment < ApplicationRecord
       .group('equipment.id')
   end
 
+  # Virtual attribute for booking count
+  def booking_count
+    bookings.count
+  end
+
   private
 
   def update_service
