@@ -26,7 +26,7 @@ class Equipment < ApplicationRecord
 
   # Virtual attribute for booking count
   def booking_count
-    bookings.count
+    bookings.count.to_i
   end
 
   private

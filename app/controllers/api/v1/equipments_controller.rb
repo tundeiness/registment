@@ -4,7 +4,8 @@ class Api::V1::EquipmentsController < ApplicationController
 
   def index
     @equipments = Equipment.all
-    render(json: @equipments, include: :bookings)
+    render json: @equipments, meta: { booking_count: true }
+    # render(json: @equipments, include: :bookings)
     # render(json: @equipments)
   end
 
@@ -44,9 +45,10 @@ class Api::V1::EquipmentsController < ApplicationController
     end
   end
 
+
   def booking_count
     @equipments = Equipment.with_booking_count
-    render json: @equipments, meta: { booking_count: true }, meta_key: 'booking_count'
+    render json: @equipments, meta: { booking_count: true }
   end
 
   private
