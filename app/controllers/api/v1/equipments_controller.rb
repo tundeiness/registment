@@ -45,7 +45,6 @@ class Api::V1::EquipmentsController < ApplicationController
     end
   end
 
-
   def booking_count
     @equipments = Equipment.with_booking_count
     render json: @equipments, meta: { booking_count: true }
