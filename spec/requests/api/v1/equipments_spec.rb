@@ -128,10 +128,10 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
 
   describe 'GET /api/v1/equipments/booking_count' do
     let(:super_admin) { create(:user, :super_admin) }
-
-    let(:booking) { create(:booking) }
     let(:equipment) { create(:equipment) }
-    let(:valid_attributes) { { user: user.id, eequipment: equipment.id, status: booking.status, booking_date: booking.booking_date, description: booking.description, pickup_date: booking.pickup_date, return_date: booking.return_date, booking_price: booking.booking_price } }
+    let(:booking) { create(:booking) }
+
+    let(:valid_attributes) { { user: user.id, equipment: equipment.id, status: booking.status, booking_date: booking.booking_date, description: booking.description, pickup_date: booking.pickup_date, return_date: booking.return_date, booking_price: booking.booking_price } }
 
     before do
       post '/users/sign_in', params: { user: { email: super_admin.email, password: super_admin.password } }

@@ -44,10 +44,12 @@ class Api::V1::EquipmentsController < ApplicationController
   end
 
   def booking_count
-    @equipment = Equipment.with_booking_count
-    render json: { equipments: @equipments.as_json(except: [:created_at, :updated_at], methods: [:booking_count]) }
-  end
+    # @equipment = Equipment.with_booking_count
+    # render json: { equipments: @equipments.as_json(except: [:created_at, :updated_at], methods: [:booking_count]) }
 
+    @equipments = Equipment.with_booking_count
+    render json: @equipments, meta: { booking_count: true }, meta_key: 'booking_count'
+  end
 
   private
 
