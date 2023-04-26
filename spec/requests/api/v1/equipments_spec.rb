@@ -140,10 +140,8 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
     end
 
     it 'returns equipments with booking counts' do
-
-      # p response.body.json
-      # p equipment
       expect(response).to have_http_status(:ok)
+      expect(response.body).to match(/"booking_count":\s*1/)
     end
   end
 end
