@@ -14,6 +14,7 @@ class Equipment < ApplicationRecord
 
   has_many :bookings
   has_many :users, through: :bookings
+  has_many :equipment_conditions, dependent: :destroy
 
   scope :newest, -> { order(created_at: :asc) }
 
