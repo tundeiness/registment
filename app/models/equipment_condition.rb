@@ -1,0 +1,2 @@
+class EquipmentCondition < ApplicationRecord
+end
