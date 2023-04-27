@@ -20,18 +20,26 @@ FactoryBot.define do
       condition { :intact }
     end
 
-    loan_status { %w[available due_in overdue repairs].sample }
+    loan_status { %w[available booked on_loan in_store not_available].sample }
 
-    trait :due_in do
-      loan_status { :due_in }
+    trait :available do
+      loan_status { :available }
     end
 
-    trait :overdue do
-      loan_status { :overdue }
+    trait :booked do
+      loan_status { :booked }
     end
 
-    trait :repairs do
-      loan_status { :repairs }
+    trait :on_loan do
+      loan_status { :on_loan }
+    end
+
+    trait :in_store do
+      loan_status { :in_store }
+    end
+
+    trait :not_available do
+      loan_status { :not_available }
     end
 
     date_acquired { Faker::Date.in_date_period }
