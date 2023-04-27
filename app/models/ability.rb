@@ -10,9 +10,11 @@ class Ability
     elsif user.admin?
       can %i[read create update], Booking, user_id: user.id
       can %i[read create], Equipment, user_id: user.id
+      can %i[read], EquipmentCondition, user_id: user.id
     else
       can :read, Equipment, user_id: user.id
       cannot %i[read create update delete], Booking
+      cannot %i[read create update delete], EquipmentCondition
     end
 
     # case user
