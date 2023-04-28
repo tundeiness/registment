@@ -17,7 +17,11 @@ Rails.application.routes.draw do
       #  user resources
       # rairesources :users
       resources :bookings
-      resources :equipment_conditions, only: [:index]
+      resources :equipment_conditions, only: [:index] do
+        collection do
+          get 'count_by_condition'
+        end
+      end
       resources :equipments do
         collection do
           get 'booking_count'
