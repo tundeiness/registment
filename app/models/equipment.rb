@@ -1,6 +1,7 @@
 class Equipment < ApplicationRecord
   # around_save :update_service, :update_service_date
   before_save :update_service
+  after_commit :update_condition_count, if: -> { saved_change_to_condition? }
   SERVICE_DAYS = 30.days
 
   has_one_attached :featured_image
@@ -38,5 +39,10 @@ class Equipment < ApplicationRecord
                         else
                           (service_date).to_date + SERVICE_DAYS
                         end
+  end
+
+  def update_condition_count
+    new_count = equipment_conditions.find_by(condition: condition)&.count.to_i + 1
+    equipment_conditions.find_by(condition: condition)&.update(count: new_count)
   end
 end
