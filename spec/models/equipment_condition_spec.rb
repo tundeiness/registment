@@ -17,7 +17,7 @@ RSpec.describe EquipmentCondition, type: :model do
   
 
   describe 'after_commit :update_condition_count' do
-    let(:equipment) { create(:equipment, condition: "new") }
+    let(:equipment) { create(:equipment, condition: 'new') }
 
     context 'when equipment condition is updated' do
       before do
@@ -25,8 +25,8 @@ RSpec.describe EquipmentCondition, type: :model do
       end
 
       it "should update the corresponding EquipmentCondition record" do
-        expect(EquipmentCondition.find_by(condition: "New").count).to eq(0)
-        expect(EquipmentCondition.find_by(condition: "Need Repair").count).to eq(1)
+        expect(EquipmentCondition.find_by(condition: 'new').count).to eq(0)
+        expect(EquipmentCondition.find_by(condition: 'Need Repair').count).to eq(1)
       end
     end
 
