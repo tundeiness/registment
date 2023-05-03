@@ -41,8 +41,23 @@ class Equipment < ApplicationRecord
                         end
   end
 
+  # def update_condition_count
+  #   new_count = equipment_conditions.find_by(condition: condition)&.count.to_i + 1
+  #   equipment_conditions.find_by(condition: condition)&.update(count: new_count)
+  # end
   def update_condition_count
-    new_count = equipment_conditions.find_by(condition: condition)&.count.to_i + 1
-    equipment_conditions.find_by(condition: condition)&.update(count: new_count)
+    Equipment.transaction do
+      old_condition_count = equipment_conditions.find_by(name: condition_was)&.count.to_i
+      new_condition = equipment_conditions.find_or_initialize_by(name: condition)
+      if new_condition.persisted?
+        new_condition.increment!(:count)
+      elsif old_condition_count.positive?
+        equipment_conditions.create(name: condition, count: 1)
+        old_condition_count -= 1
+      end
+      if old_condition_count > 0
+        equipment_conditions.find_by(name: condition_was).decrement!(:count, old_condition_count)
+      end
+    end
   end
 end

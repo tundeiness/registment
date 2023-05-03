@@ -17,16 +17,21 @@ RSpec.describe EquipmentCondition, type: :model do
   
 
   describe 'after_commit :update_condition_count' do
-    let(:equipment) { create(:equipment, condition: 'new') }
+    let!(:equipment) { create(:equipment, condition: 'new') }
 
     context 'when equipment condition is updated' do
+      let(:old_condition) { 'new' }
+      let(:new_condition) { 'Need Repair' }
+
       before do
-        equipment.update(condition: 'Need Repair')
+        equipment.update(condition: new_condition)
       end
 
-      it "should update the corresponding EquipmentCondition record" do
-        expect(EquipmentCondition.find_by(condition: 'new').count).to eq(0)
-        expect(EquipmentCondition.find_by(condition: 'Need Repair').count).to eq(1)
+      it 'should update the corresponding EquipmentCondition record' do
+        # expect(EquipmentCondition.find_by(condition: 'new').count).to eq(0)
+        # expect(EquipmentCondition.find_by(condition: 'Need Repair').count).to eq(1)
+        expect(EquipmentCondition.find_by(condition: old_condition).count).to eq(0)
+        expect(EquipmentCondition.find_by(condition: new_condition).count).to eq(1)
       end
     end
 
