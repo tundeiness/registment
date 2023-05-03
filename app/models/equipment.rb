@@ -1,7 +1,12 @@
 class Equipment < ApplicationRecord
   # around_save :update_service, :update_service_date
+  has_many :bookings
+  has_many :users, through: :bookings
+  has_many :equipment_conditions, dependent: :destroy
+
   before_save :update_service
-  after_commit :update_condition_count, if: -> { saved_change_to_condition? }
+  # after_commit :update_condition_count, if: -> { saved_change_to_condition? }
+  after_commit :update_condition_count, on: [:create, :update], if: :condition_changed?
   SERVICE_DAYS = 30.days
 
   has_one_attached :featured_image
@@ -13,10 +18,7 @@ class Equipment < ApplicationRecord
 
   # validates :featured_image, { presence: true }
 
-  has_many :bookings
-  has_many :users, through: :bookings
-  has_many :equipment_conditions, dependent: :destroy
-
+ 
   scope :newest, -> { order(created_at: :asc) }
 
 
@@ -42,22 +44,15 @@ class Equipment < ApplicationRecord
   end
 
   # def update_condition_count
-  #   new_count = equipment_conditions.find_by(condition: condition)&.count.to_i + 1
-  #   equipment_conditions.find_by(condition: condition)&.update(count: new_count)
+  #   # new_count = equipment_conditions.find_by(condition: condition)&.count.to_i + 1
+  #   # equipment_conditions.find_by(condition: condition)&.update(count: new_count)
+  #   condition_record = equipment_conditions.find_or_initialize_by(condition: condition)
+  #   condition_record.update(count: condition_record.count.to_i + 1)
   # end
+
   def update_condition_count
-    Equipment.transaction do
-      old_condition_count = equipment_conditions.find_by(name: condition_was)&.count.to_i
-      new_condition = equipment_conditions.find_or_initialize_by(name: condition)
-      if new_condition.persisted?
-        new_condition.increment!(:count)
-      elsif old_condition_count.positive?
-        equipment_conditions.create(name: condition, count: 1)
-        old_condition_count -= 1
-      end
-      if old_condition_count > 0
-        equipment_conditions.find_by(name: condition_was).decrement!(:count, old_condition_count)
-      end
-    end
+    condition_record = equipment_conditions.find_or_initialize_by(condition: condition)
+    condition_record.increment!(:count)
   end
+
 end
