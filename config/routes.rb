@@ -24,7 +24,8 @@ Rails.application.routes.draw do
       end
       resources :equipments do
         collection do
-          get 'booking_count'
+          get :booking_count
+          get :by_condition
         end
       end
     end
