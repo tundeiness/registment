@@ -5,8 +5,7 @@ class Equipment < ApplicationRecord
   has_many :equipment_conditions, dependent: :destroy
 
   before_save :update_service
-  # after_commit :update_condition_count, if: -> { saved_change_to_condition? }
-  after_commit :update_condition_count, on: [:create, :update], if: :condition_changed?
+
   SERVICE_DAYS = 30.days
 
   has_one_attached :featured_image
@@ -18,9 +17,9 @@ class Equipment < ApplicationRecord
 
   # validates :featured_image, { presence: true }
 
- 
-  scope :newest, -> { order(created_at: :asc) }
 
+  scope :newest, -> { order(created_at: :asc) }
+  scope :by_condition, -> { group(:condition).count }
 
   def self.with_booking_count
     select('equipment.*, COUNT(bookings.id) AS booking_count')
