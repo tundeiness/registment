@@ -19,6 +19,6 @@ FactoryBot.define do
       condition { :intact }
     end
 
-    count { Faker::Number.non_zero_digit }
+    num { Faker::Number.non_zero_digit }
   end
 end
