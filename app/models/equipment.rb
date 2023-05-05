@@ -52,7 +52,8 @@ class Equipment < ApplicationRecord
 
   def update_condition_count
     condition_record = equipment_conditions.find_or_initialize_by(condition: condition)
-    condition_record.increment!(:count)
+    condition_record.update(num: condition_record.count.to_i + 1)
+    # condition_record.increment!(:num)
   end
 
 end
