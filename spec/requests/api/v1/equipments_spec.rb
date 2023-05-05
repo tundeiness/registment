@@ -145,4 +145,26 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
       expect(parsed_response[0][:booking_count]).to eq(1)
     end
   end
+
+  describe 'GET /api/v1/equipments/by_condition' do
+    let(:super_admin) { create(:user, :super_admin) }
+    let!(:equipment1) { create(:equipment, condition: 'new') }
+    let!(:equipment2) { create(:equipment, condition: 'damaged') }
+    let!(:equipment3) { create(:equipment, condition: 'intact') }
+
+    before do
+      post '/users/sign_in', params: { user: { email: super_admin.email, password: super_admin.password } }
+      get '/api/v1/equipments/by_condition'
+    end
+
+    it 'returns equipments with their conditions' do
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response.count).to eq(3)
+      expect(parsed_response).to include('intact' => 1, 'new' => 1, 'damaged' => 1)
+    end
+
+    it 'returns a status code of 200' do
+      expect(response).to have_http_status(200)
+    end
+  end
 end
