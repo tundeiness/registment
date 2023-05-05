@@ -6,7 +6,7 @@ RSpec.describe EquipmentCondition, type: :model do
     subject { build(:equipment_condition) }
 
     context 'validation' do
-      it { should validate_presence_of(:count) }
+      it { should validate_presence_of(:num) }
       it { should validate_presence_of(:condition) }
     end
 
