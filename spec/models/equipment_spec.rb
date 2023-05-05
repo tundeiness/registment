@@ -15,14 +15,27 @@ RSpec.describe Equipment, type: :model do
     it { should validate_presence_of(:service_date) }
   end
 
-  describe '.newest' do
-    let(:newest) { build_stubbed :equipment, created_at: Date.today }
+  context 'scopes' do
+    describe '.by_condition' do
+      let!(:equipment1) { create(:equipment, condition: 'new') }
+      let!(:equipment2) { create(:equipment, condition: 'need_repair') }
+      let!(:equipment3) { create(:equipment, condition: 'intact') }
+      let!(:equipment4) { create(:equipment, condition: 'new') }
 
-    before do
-      allow(Equipment).to receive(:newest).and_return([newest])
+      it 'returns equipment grouped by condition with count' do
+        expect(Equipment.by_condition).to eq({ 'new' => 2, 'need_repair' => 1, 'intact' => 1 })
+      end
     end
 
-    it { expect(Equipment.newest).to include newest }
+    describe '.newest' do
+      let(:newest) { build_stubbed :equipment, created_at: Date.today }
+
+      before do
+        allow(Equipment).to receive(:newest).and_return([newest])
+      end
+
+      it { expect(Equipment.newest).to include newest }
+    end
   end
 
   describe '.with_booking_count' do
