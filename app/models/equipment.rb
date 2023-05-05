@@ -42,18 +42,4 @@ class Equipment < ApplicationRecord
                           (service_date).to_date + SERVICE_DAYS
                         end
   end
-
-  # def update_condition_count
-  #   # new_count = equipment_conditions.find_by(condition: condition)&.count.to_i + 1
-  #   # equipment_conditions.find_by(condition: condition)&.update(count: new_count)
-  #   condition_record = equipment_conditions.find_or_initialize_by(condition: condition)
-  #   condition_record.update(count: condition_record.count.to_i + 1)
-  # end
-
-  def update_condition_count
-    condition_record = equipment_conditions.find_or_initialize_by(condition: condition)
-    condition_record.update(num: condition_record.count.to_i + 1)
-    # condition_record.increment!(:num)
-  end
-
 end
