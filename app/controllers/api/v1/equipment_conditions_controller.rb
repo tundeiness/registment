@@ -8,7 +8,7 @@ class Api::V1::EquipmentConditionsController < ApplicationController
   def count_by_condition
     equipment_condition = EquipmentCondition.find_by(condition: params[:condition])
     if equipment_condition.present?
-      render json: { count: equipment_condition.count }
+      render json: { num: equipment_condition.count }
     else
       render json: { error: 'condition not found' }, status: :not_found
     end
