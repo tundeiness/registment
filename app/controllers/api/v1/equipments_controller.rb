@@ -50,6 +50,12 @@ class Api::V1::EquipmentsController < ApplicationController
     render json: @equipments, meta: { booking_count: true }
   end
 
+  def by_condition
+    @equipment_by_condition = Equipment.by_condition
+
+    render json: @equipment_by_condition
+  end
+
   private
 
   def set_equipment
