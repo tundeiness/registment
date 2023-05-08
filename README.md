@@ -270,7 +270,8 @@ tunde-oretade/)
 
 
 ## 🔭 Future Features
-
+- [ ] Add Analytics to track Equipment model
+- [ ] Add Analytics to track Booking model
 - [ ] Create an appropriate frontend using TypeScript and Reactjs
 
 ## 🤝 Contributing
