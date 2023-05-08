@@ -26,6 +26,7 @@ Rails.application.routes.draw do
         collection do
           get :booking_count
           get :by_condition
+          get :loan_status_count
         end
       end
     end
