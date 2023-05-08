@@ -48,6 +48,10 @@ RSpec.describe Equipment, type: :model do
       it 'returns equipment grouped by loan_status with count' do
         expect(Equipment.loan_count).to eq({ 'available' => 2, 'not_available' => 1, 'on_loan' => 1, 'booked' => 1, 'in_store' => 1 })
       end
+
+      it 'returns loan_status count' do
+        expect(Equipment.loan_count.count).to eq(5)
+      end
     end
   end
 
