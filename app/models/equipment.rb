@@ -2,7 +2,7 @@ class Equipment < ApplicationRecord
   # around_save :update_service, :update_service_date
   has_many :bookings
   has_many :users, through: :bookings
-  # has_many :equipment_conditions, dependent: :destroy
+
 
   before_save :update_service
 
