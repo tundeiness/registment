@@ -42,8 +42,8 @@ RSpec.describe Equipment, type: :model do
       let!(:equipment2) { create(:equipment, loan_status: 'not_available') }
       let!(:equipment3) { create(:equipment, loan_status: 'on_loan') }
       let!(:equipment4) { create(:equipment, loan_status: 'booked') }
-      let!(:equipment4) { create(:equipment, loan_status: 'available') }
-      let!(:equipment4) { create(:equipment, loan_status: 'in_store') }
+      let!(:equipment5) { create(:equipment, loan_status: 'available') }
+      let!(:equipment6) { create(:equipment, loan_status: 'in_store') }
 
       it 'returns equipment grouped by loan_status with count' do
         expect(Equipment.loan_count).to eq({ 'available' => 2, 'not_available' => 1, 'on_loan' => 1, 'booked' => 1, 'in_store' => 1 })
