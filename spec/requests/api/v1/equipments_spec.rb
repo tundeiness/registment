@@ -167,4 +167,8 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
       expect(response).to have_http_status(200)
     end
   end
+
+  describe 'GET /api/v1/equipments/loan_status_count' do
+    # some code
+  end
 end
