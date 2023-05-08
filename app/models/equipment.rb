@@ -20,6 +20,7 @@ class Equipment < ApplicationRecord
 
   scope :newest, -> { order(created_at: :asc) }
   scope :by_condition, -> { group(:condition).count }
+  scope :loan_count, -> { group(:loan_status).count }
 
   def self.with_booking_count
     select('equipment.*, COUNT(bookings.id) AS booking_count')
