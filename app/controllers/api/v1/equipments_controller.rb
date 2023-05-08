@@ -56,6 +56,12 @@ class Api::V1::EquipmentsController < ApplicationController
     render json: @equipment_by_condition
   end
 
+  def loan_status_count
+    @equipment_loan_count = Equipment.loan_count
+
+    render json: @equipment_loan_count
+  end
+
   private
 
   def set_equipment
