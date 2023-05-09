@@ -170,5 +170,28 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
 
   describe 'GET /api/v1/equipments/loan_status_count' do
     # some code
+    let(:super_admin) { create(:user, :super_admin) }
+    let!(:equipment1) { create(:equipment, loan_status: 'available') }
+    let!(:equipment2) { create(:equipment, loan_status: 'booked') }
+    let!(:equipment3) { create(:equipment, loan_status: 'on_loan') }
+    let!(:equipment4) { create(:equipment, loan_status: 'in_store') }
+    let!(:equipment5) { create(:equipment, loan_status: 'not_available') }
+    let!(:equipment6) { create(:equipment, loan_status: 'available') }
+    before do
+      post '/users/sign_in', params: { user: { email: super_admin.email, password: super_admin.password } }
+      get '/api/v1/equipments/loan_status_count'
+    end
+
+    it 'returns equipments with their loan status' do
+      parsed_response = JSON.parse(response.body)
+      expect(parsed_response.count).to eq(5)
+      expect(parsed_response).to include('available' => 2, 'booked' => 1, 'on_loan' => 1, 'in_store' => 1 , 'not_available' => 1 )
+    end
+
+    it 'returns a status code of 200' do
+      expect(response).to have_http_status(200)
+    end
   end
 end
+
+
