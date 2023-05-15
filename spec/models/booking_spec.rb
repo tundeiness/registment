@@ -19,23 +19,39 @@ RSpec.describe Booking, type: :model do
     it { should_not have_many(:invalid_association) }
   end
 
-
   context 'method' do
     describe '#update_usage_count' do
       let(:equipment) { create(:equipment) }
       let(:booking) { create(:booking, equipment: equipment) }
 
       it 'should update the usage count when the status is changed to loaned out' do
-        expect {
+        expect do
           booking.update(status: 'loaned_out')
-        }.to change { equipment.usage_count }.by(1)
+        end.to change { equipment.usage_count }.by(1)
       end
 
       it 'should not update the usage count when the status is not changed to loaned out' do
-        expect {
+        expect do
           booking.update(status: 'Available')
-        }.not_to change { equipment.usage_count }
+        end.not_to change { equipment.usage_count }
       end
+    end
+
+    describe '#reset_usage_count' do
+      let(:equipment) { create(:equipment) }
+      let(:booking) { create(:booking, equipment: equipment) }
+
+      it 'should reset the usage count when the status is changed to repairs' do
+        expect do
+          booking.update(status: 'repairs')
+        end.not_to change { equipment.usage_count }
+      end
+
+      # it 'should not update the usage count when the status is not changed to loaned out' do
+      #   expect {
+      #     booking.update(status: 'Available')
+      #   }.not_to change { equipment.usage_count }
+      # end
     end
   end
 end
