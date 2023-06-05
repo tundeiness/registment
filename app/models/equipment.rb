@@ -3,7 +3,6 @@ class Equipment < ApplicationRecord
   has_many :bookings
   has_many :users, through: :bookings
 
-
   before_save :update_service
 
   SERVICE_DAYS = 30.days
@@ -16,7 +15,6 @@ class Equipment < ApplicationRecord
   validates :loan_status, presence: true
 
   # validates :featured_image, { presence: true }
-
 
   scope :newest, -> { order(created_at: :asc) }
   scope :by_condition, -> { group(:condition).count }
