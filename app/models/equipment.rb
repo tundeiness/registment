@@ -37,9 +37,9 @@ class Equipment < ApplicationRecord
 
   def update_service
     self.service_date = if service_date.blank?
-                          (date_acquired).to_date + SERVICE_DAYS
+                          date_acquired.to_date + SERVICE_DAYS
                         else
-                          (service_date).to_date + SERVICE_DAYS
+                          service_date.to_date + SERVICE_DAYS
                         end
   end
 end
