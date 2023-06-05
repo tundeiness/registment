@@ -185,7 +185,7 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
     it 'returns equipments with their loan status' do
       parsed_response = JSON.parse(response.body)
       expect(parsed_response.count).to eq(5)
-      expect(parsed_response).to include('available' => 2, 'booked' => 1, 'on_loan' => 1, 'in_store' => 1 , 'not_available' => 1 )
+      expect(parsed_response).to include('available' => 2, 'booked' => 1, 'on_loan' => 1, 'in_store' => 1 , 'not_available' => 1)
     end
 
     it 'returns a status code of 200' do
@@ -193,5 +193,3 @@ RSpec.describe 'Api::V1::Equipments', type: :request do
     end
   end
 end
-
-
