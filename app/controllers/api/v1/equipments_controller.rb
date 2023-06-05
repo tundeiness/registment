@@ -1,6 +1,6 @@
 class Api::V1::EquipmentsController < ApplicationController
   load_and_authorize_resource
-  before_action :set_equipment, only: [:show, :destroy]
+  before_action :set_equipment, only: %i[show destroy]
 
   def index
     @equipments = Equipment.all
@@ -11,7 +11,7 @@ class Api::V1::EquipmentsController < ApplicationController
 
   def show
     @equipment = Equipment.find(params[:id])
-    if @equipment.featured_image.attached? 
+    if @equipment.featured_image.attached?
       render json: @equipment.as_json(only: %i[brand_name]).merge(featured_image_path: url_for(@equipment.avatar)), status: :ok
     else
       render json: @equipment, status: :ok
