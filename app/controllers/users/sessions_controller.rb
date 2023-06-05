@@ -3,7 +3,7 @@ class Users::SessionsController < Devise::SessionsController
 
   private
 
-  def respond_with(resource, options = {})
+  def respond_with(resource, _options = {})
     render json: {
       status: { code: 200, message: 'Sign in successful', data: resource }
     }, status: :ok
@@ -63,19 +63,4 @@ class Users::SessionsController < Devise::SessionsController
     #   }, status: :unauthorized
     # end
   end
-
-
-  # def destroy
-  #   if current_user
-  #     sign_out current_user
-  #     render json: {
-  #       status: 200, message: 'Sign out successful'
-  #     }, status: :ok
-  #   else
-  #     render json: {
-  #       status: 401,
-  #       message: 'Couldn\'t find an active session'
-  #     }, status: :unauthorized
-  #   end
-  # end
 end
