@@ -15,7 +15,7 @@ RUN bundle install --jobs 4 --retry 3
 COPY . .
 
 # Expose the port on which the Rails API will run
-EXPOSE 3000
+EXPOSE 3001
 
 # Start the Rails server
 CMD ["rails", "server", "-b", "0.0.0.0"]
