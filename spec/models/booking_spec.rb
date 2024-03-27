@@ -33,7 +33,7 @@ RSpec.describe Booking, type: :model do
       it 'should not update the usage count when the status is not changed to loaned out' do
         expect do
           booking.update(status: 'Available')
-        end.not_to change { equipment.usage_count }
+        end.not_to(change { equipment.usage_count })
       end
     end
 
@@ -44,7 +44,7 @@ RSpec.describe Booking, type: :model do
       it 'should reset the usage count when the status is changed to repairs' do
         expect do
           booking.update(status: 'repairs')
-        end.not_to change { equipment.usage_count }
+        end.not_to(change { equipment.usage_count })
       end
     end
   end
